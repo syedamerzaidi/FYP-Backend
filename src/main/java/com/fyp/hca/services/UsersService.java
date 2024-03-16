@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -49,5 +50,9 @@ public class UsersService {
 
     public Optional<Users> isValidUser(String email, String password) {
         return usersRepository.findByEmailAndPassword(email,password);
+    }
+
+    public List<Map<String,Object>> getAllUsers() {
+        return usersRepository.getAllUsers();
     }
 }

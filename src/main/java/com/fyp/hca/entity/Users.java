@@ -138,6 +138,14 @@ public class Users extends BaseEntity {
         this.tehsil = tehsil;
     }
 
+    public void setUserType(String userType) {
+        this.usertype=userType;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital=hospital;
+    }
+
     /*public byte[] getProfilePicture() {return profilePicture;}
 
     public void setProfilePicture(byte[] profilePicture) {this.profilePicture = profilePicture;}*/
