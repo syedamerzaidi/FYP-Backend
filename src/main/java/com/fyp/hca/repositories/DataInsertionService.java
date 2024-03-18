@@ -100,7 +100,7 @@ public class DataInsertionService {
             user.setPassword("password" + i);
             user.setContact("123456789" + i);
             int randomUserTypeIndex = (int) (Math.random() * USER_TYPES.length);
-            user.setUserType(USER_TYPES[randomUserTypeIndex]);
+            user.setUsertype(USER_TYPES[randomUserTypeIndex]);
 
             // Check and assign unique foreign keys
             switch(randomUserTypeIndex) {
