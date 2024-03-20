@@ -14,7 +14,7 @@ public class Hospital extends BaseEntity{
     private int id;
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @Column(name = "code", nullable = false, length = 50)
+    @Column(name = "code", nullable = false, length = 255)
     private String code;
     @Column(name = "address", nullable = false, length = 255)
     private String address;

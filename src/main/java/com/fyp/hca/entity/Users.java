@@ -20,8 +20,10 @@ public class Users extends BaseEntity {
     private String lastName;
     @Column(name = "usertype", nullable = false, length = 255)
     private String usertype;
-    @Column(name = "contact", nullable = true, length = 255)
+    @Column(name = "contact", nullable = false, length = 255)
     private String contact;
+    @Column(name = "cnic", nullable = false, length = 255)
+    private String cnic;
     @Column(name = "email", nullable = false, length = 255)
     private String email;
     @Column(name = "password", nullable = false, length = 255)

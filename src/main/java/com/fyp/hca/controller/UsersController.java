@@ -1,4 +1,5 @@
 package com.fyp.hca.controller;
+import com.fyp.hca.dto.UsersDto;
 import com.fyp.hca.entity.Users;
 import com.fyp.hca.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class UsersController {
     private UsersService userService;
 
     @PostMapping(value = "user/add")
-    public void addUsers(@RequestBody Users users){
+    public void addUsers(@RequestBody List<UsersDto> users){
         userService.save(users);
     }
 

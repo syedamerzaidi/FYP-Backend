@@ -83,7 +83,6 @@ public class DataInsertionService {
         }
 
         // Insert dummy data for users
-        String[] USER_TYPES = {"Super Administrator", "Province Administrator", "Division Administrator", "District Administrator", "Tehsil Administrator", "Hospital Administrator"};
 
 // Create sets to store used foreign key ids
         Set<Integer> hospitalIds = new HashSet<>();
@@ -91,6 +90,7 @@ public class DataInsertionService {
         Set<Integer> districtIds = new HashSet<>();
         Set<Integer> divisionIds = new HashSet<>();
         Set<Integer> provinceIds = new HashSet<>();
+        String[] USER_TYPES = {"Super Administrator", "Province Administrator", "Division Administrator", "District Administrator", "Tehsil Administrator", "Hospital Administrator"};
 
         for (int i = 1; i <= 1000; i++) {
             Users user = new Users();
@@ -99,45 +99,48 @@ public class DataInsertionService {
             user.setEmail("email" + i + "@example.com");
             user.setPassword("password" + i);
             user.setContact("123456789" + i);
+            user.setCnic("12345-6-789" + i);
             int randomUserTypeIndex = (int) (Math.random() * USER_TYPES.length);
             user.setUsertype(USER_TYPES[randomUserTypeIndex]);
 
             // Check and assign unique foreign keys
             switch(randomUserTypeIndex) {
-                case 4:
+                case 5:
                     Hospital randomHospital;
                     do {
                         randomHospital = hospitalRepository.findById((int) (Math.random() * 1000 + 1)).orElse(null);
                     } while (!hospitalIds.add(randomHospital.getId()));
                     user.setHospital(randomHospital);
                     break;
-                case 3:
+                case 4:
                     Tehsil randomTehsil;
                     do {
                         randomTehsil = tehsilRepository.findById((int) (Math.random() * 1000 + 1)).orElse(null);
                     } while (!tehsilIds.add(randomTehsil.getId()));
                     user.setTehsil(randomTehsil);
                     break;
-                case 2:
+                case 3:
                     District randomDistrict;
                     do {
                         randomDistrict = districtRepository.findById((int) (Math.random() * 300 + 1)).orElse(null);
                     } while (!districtIds.add(randomDistrict.getId()));
                     user.setDistrict(randomDistrict);
                     break;
-                case 1:
+                case 2:
                     Division randomDivision;
                     do {
                         randomDivision = divisionRepository.findById((int) (Math.random() * 30 + 1)).orElse(null);
                     } while (!divisionIds.add(randomDivision.getId()));
                     user.setDivision(randomDivision);
                     break;
-                case 0:
+                case 1:
                     Province randomProvince;
                     do {
                         randomProvince = provinceRepository.findById((int) (Math.random() * 6 + 1)).orElse(null);
                     } while (!provinceIds.add(randomProvince.getId()));
                     user.setProvince(randomProvince);
+                    break;
+                case 0:
                     break;
             }
 

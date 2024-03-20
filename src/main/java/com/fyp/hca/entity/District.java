@@ -10,7 +10,7 @@ public class District extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id"/*,columnDefinition = "serial"*/,nullable = false)
     private int id;
-    @Column(name = "name", nullable = false, length = 30)
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
     @ManyToOne
     @JoinColumn(name = "division_id", referencedColumnName = "id", nullable = true)
