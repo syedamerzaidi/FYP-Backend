@@ -1,11 +1,9 @@
 package com.fyp.hca.controller;
-import com.fyp.hca.dto.UsersDto;
 import com.fyp.hca.entity.Users;
 import com.fyp.hca.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -15,7 +13,7 @@ public class UsersController {
     private UsersService userService;
 
     @PostMapping(value = "user/add")
-    public void addUsers(@RequestBody List<UsersDto> users){
+    public void addUsers(@RequestBody Users users){
         userService.save(users);
     }
 
@@ -44,10 +42,6 @@ public class UsersController {
             @RequestParam String email,
             @RequestParam String password){
         return userService.isValidUser(email,password);
-    }
-    @GetMapping(value = "/user/getalluser")
-    public List<Map<String,Object>> getAllUsers(){
-        return userService.getAllUsers();
     }
 
 }
