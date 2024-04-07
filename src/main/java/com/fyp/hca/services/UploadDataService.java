@@ -40,31 +40,40 @@ public class UploadDataService {
             if (!Files.exists(directory)) {
                 Files.createDirectories(directory);
             }
-
-            // Save file
             byte[] bytes = file.getBytes();
             Path path = Paths.get(filePath);
             Files.write(path, bytes);
 
-            // Parse CSV and publish to Kafka
             List<String> lines = Files.readAllLines(path);
-            //print current time in 12 hour format
-            System.out.println("Current time in 12 hour format: " + new SimpleDateFormat("hh:mm a").format(new Date()));
 
-            // add a delay of 20 sec
-            try {
-                Thread.sleep(20000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            for (int i = 1; i < lines.size(); i++) { // Start from the second line (index 1)
+            for (int i = 1; i < lines.size(); i++) {
                 String line = lines.get(i);
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
-                    String name = parts[0].trim();
-                    int age = Integer.parseInt(parts[1].trim());
-                    System.out.println("Name: " + name + ", Age: " + age);
-                    kafkaProducerService.sendMessage( name + "," + age);
+                    String firstName = parts[0].trim();
+                    String lastName = parts[1].trim();
+                    String cnic = parts[2].trim();
+                    int age = Integer.parseInt(parts[3].trim());
+                    String admissionDateStr = parts[4].trim();
+                    String chronicDisease = parts[5].trim();
+                    String gender = parts[6].trim();
+                    boolean respiratory = Boolean.parseBoolean(parts[7].trim());
+                    boolean weaknessPain = Boolean.parseBoolean(parts[8].trim());
+                    boolean fever = Boolean.parseBoolean(parts[9].trim());
+                    boolean gastrointestinal = Boolean.parseBoolean(parts[10].trim());
+                    boolean nausea = Boolean.parseBoolean(parts[11].trim());
+                    boolean cardiac = Boolean.parseBoolean(parts[12].trim());
+                    boolean highFever = Boolean.parseBoolean(parts[13].trim());
+                    boolean kidney = Boolean.parseBoolean(parts[14].trim());
+                    boolean asymptomatic = Boolean.parseBoolean(parts[15].trim());
+                    boolean diabetes = Boolean.parseBoolean(parts[16].trim());
+                    boolean neuro = Boolean.parseBoolean(parts[17].trim());
+                    boolean hypertension = Boolean.parseBoolean(parts[18].trim());
+                    boolean cancer = Boolean.parseBoolean(parts[19].trim());
+                    boolean thyroid = Boolean.parseBoolean(parts[20].trim());
+                    String message=firstName+","+lastName+","+cnic+","+age+","+admissionDateStr+","+chronicDisease+gender+
+                            respiratory+weaknessPain+fever+gastrointestinal+nausea+cardiac+highFever+kidney+asymptomatic+diabetes+neuro+hypertension+cancer+thyroid;
+                    kafkaProducerService.sendMessage(message);
                 }
             }
 
