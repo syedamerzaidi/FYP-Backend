@@ -18,6 +18,12 @@ public class Province extends BaseEntity{
     @OneToOne(optional = true, cascade = CascadeType.ALL, mappedBy = "province")
     private Users user;
 
+    public Province() {
+    }
+    public Province(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
     public int getId() {
         return id;
     }

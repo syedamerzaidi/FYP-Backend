@@ -37,4 +37,7 @@ public class ProvinceService {
     public void updateProvince(Province province) {
         provinceRepository.save(province);
     }
+    public List<Province> getProvinceIdAndName() {
+        return provinceRepository.findProvinceIdAndName();
+    }
 }

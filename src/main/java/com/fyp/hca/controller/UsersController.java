@@ -43,5 +43,11 @@ public class UsersController {
             @RequestParam String password){
         return userService.isValidUser(email,password);
     }
+    @GetMapping(value = "user/getall")
+    public List<Users> getallUsers(@RequestParam(defaultValue = "0") Integer pageNo,
+                                @RequestParam(defaultValue = "10") Integer pageSize){
+        return userService.getallUsers(pageNo, pageSize);
+    }
+
 
 }

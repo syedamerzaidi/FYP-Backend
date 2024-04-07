@@ -27,6 +27,11 @@ public class Hospital extends BaseEntity{
     @OneToOne(optional = true, cascade = CascadeType.ALL, mappedBy = "hospital")
     private Users user;
 
+    public Hospital() {}
+    public Hospital(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
     public void setId(int id) {this.id = id;}
 
     public String getName() {return name;}

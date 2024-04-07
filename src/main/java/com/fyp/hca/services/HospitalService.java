@@ -1,6 +1,7 @@
 package com.fyp.hca.services;
 
 import com.fyp.hca.entity.Hospital;
+import com.fyp.hca.entity.Tehsil;
 import com.fyp.hca.entity.Users;
 import com.fyp.hca.repositories.HospitalRepository;
 import org.hibernate.annotations.SecondaryRow;
@@ -39,4 +40,8 @@ public class HospitalService {
     public void updateHospital(Hospital hospital) {
         hospitalRepository.save(hospital);
     }
+    public List<Hospital> getHospitalIdAndName() {
+        return hospitalRepository.findHospitalIdAndName();
+    }
+
 }

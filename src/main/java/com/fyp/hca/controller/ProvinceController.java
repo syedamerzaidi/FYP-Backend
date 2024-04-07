@@ -39,4 +39,8 @@ public class ProvinceController {
     public void updateProvince(@RequestBody Province province){
         provinceService.updateProvince(province);
     }
+    @GetMapping(value = "/province/getIdAndName")
+    public List<Province> getProvinceIdAndName(){
+        return provinceService.getProvinceIdAndName();
+    }
 }

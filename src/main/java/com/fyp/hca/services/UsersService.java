@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Getter
 @Service
@@ -45,6 +48,12 @@ public class UsersService {
 
     public Optional<Users> isValidUser(String email, String password) {
         return usersRepository.findByEmailAndPassword(email,password);
+    }
+
+    public List<Users> getallUsers(Integer pageNo, Integer pageSize) {
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+        Page<Users> pagedResult = usersRepository.findAll(paging);
+        return pagedResult.toList();
     }
 
 }

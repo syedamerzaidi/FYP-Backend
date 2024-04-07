@@ -39,4 +39,10 @@ public class HospitalController {
     public void updateHospital(@RequestBody Hospital hospital){
         hospitalService.updateHospital(hospital);
     }
+
+    @GetMapping(value = "/hospital/getIdAndName")
+    public List<Hospital> getHospitalIdAndName(){
+        return hospitalService.getHospitalIdAndName();
+    }
+
 }
