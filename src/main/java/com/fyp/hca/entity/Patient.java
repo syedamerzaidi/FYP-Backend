@@ -60,8 +60,6 @@ public class Patient extends BaseEntity{
     private Boolean asymptomatic;
     @Column(name = "gastrointestinal", nullable = true)
     private Boolean gastrointestinal;
-    @Column(name = "others", nullable = true, length = 255)
-    private String others;
     @Column(name = "admission_date", nullable = true)
     private Date admissionDate;
 
@@ -73,109 +71,17 @@ public class Patient extends BaseEntity{
     @JoinColumn(name = "disease_id", referencedColumnName = "id")
     private Disease disease;
 
-    public int getId() {return id;}
-
-    public void setId(int id) {this.id = id;}
-
-    public String getCnic() {return cnic;}
-
-    public void setCnic(String cnic) {this.cnic = cnic;}
-
-    public String getGender() {return gender;}
-
-    public void setGender(String gender) {this.gender = gender;}
-
-    public int getAge() {return age;}
-
-    public void setAge(int age) {this.age = age;}
-
-    public String getBlood() {return blood;}
-
-    public void setBlood(String blood) {this.blood = blood;}
-
-    public String getChronicdisease() {return chronicdisease;}
-
-    public void setChronicdisease(String chronicdisease) {this.chronicdisease = chronicdisease;}
-
-    public Boolean getDiabetes() {return diabetes;}
-
-    public void setDiabetes(Boolean diabetes) {this.diabetes = diabetes;}
-
-    public Boolean getHighFever() {return highFever;}
-
-    public void setHighFever(Boolean highFever) {this.highFever = highFever;}
-
-    public Boolean getFever() {return fever;}
-
-    public void setFever(Boolean fever) {this.fever = fever;}
-
-    public Boolean getHypertension() {return hypertension;}
-
-    public void setHypertension(Boolean hypertension) {this.hypertension = hypertension;}
-
-    public Boolean getCardiac() {return cardiac;}
-
-    public void setCardiac(Boolean cardiac) {this.cardiac = cardiac;}
-
-    public Boolean getWeaknessPain() {return weaknessPain;}
-
-    public void setWeaknessPain(Boolean weaknessPain) {this.weaknessPain = weaknessPain;}
-
-    public Boolean getRespiratory() {return respiratory;}
-
-    public void setRespiratory(Boolean respiratory) {this.respiratory = respiratory;}
-
-    public Boolean getCancer() {return cancer;}
-
-    public void setCancer(Boolean cancer) {this.cancer = cancer;}
-
-    public Boolean getThyroid() {return thyroid;}
-
-    public void setThyroid(Boolean thyroid) {this.thyroid = thyroid;}
-
-    public Boolean getProstate() {return prostate;}
-
-    public void setProstate(Boolean prostate) {this.prostate = prostate;}
-
-    public Boolean getKidney() {return kidney;}
-
-    public void setKidney(Boolean kidney) {this.kidney = kidney;}
-
-    public Boolean getNeuro() {return neuro;}
-
-    public void setNeuro(Boolean neuro) {this.neuro = neuro;}
-
-    public Boolean getNausea() {return nausea;}
-
-    public void setNausea(Boolean nausea) {this.nausea = nausea;}
-
-    public Boolean getAsymptomatic() {return asymptomatic;}
-
-    public void setAsymptomatic(Boolean asymptomatic) {this.asymptomatic = asymptomatic;}
-
-    public Boolean getGastrointestinal() {return gastrointestinal;}
-
-    public void setGastrointestinal(Boolean gastrointestinal) {this.gastrointestinal = gastrointestinal;}
-
-    public String getOthers() {return others;}
-
-    public void setOthers(String others) {this.others = others;}
-
-    public Date getAdmissionDate() {return admissionDate;}
-
-    public void setAdmissionDate(Date admissionDate) {this.admissionDate = admissionDate;}
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Patient patient = (Patient) o;
-        return id == patient.id && age == patient.age && Objects.equals(firstName, patient.firstName) && Objects.equals(lastName, patient.lastName) && Objects.equals(cnic, patient.cnic) && Objects.equals(gender, patient.gender) && Objects.equals(blood, patient.blood) && Objects.equals(chronicdisease, patient.chronicdisease) && Objects.equals(diabetes, patient.diabetes) && Objects.equals(highFever, patient.highFever) && Objects.equals(fever, patient.fever) && Objects.equals(hypertension, patient.hypertension) && Objects.equals(cardiac, patient.cardiac) && Objects.equals(weaknessPain, patient.weaknessPain) && Objects.equals(respiratory, patient.respiratory) && Objects.equals(cancer, patient.cancer) && Objects.equals(thyroid, patient.thyroid) && Objects.equals(prostate, patient.prostate) && Objects.equals(kidney, patient.kidney) && Objects.equals(neuro, patient.neuro) && Objects.equals(nausea, patient.nausea) && Objects.equals(asymptomatic, patient.asymptomatic) && Objects.equals(gastrointestinal, patient.gastrointestinal) && Objects.equals(others, patient.others) && Objects.equals(admissionDate, patient.admissionDate) && Objects.equals(hospital, patient.hospital) && Objects.equals(disease, patient.disease);
+        return id == patient.id && age == patient.age && Objects.equals(firstName, patient.firstName) && Objects.equals(lastName, patient.lastName) && Objects.equals(cnic, patient.cnic) && Objects.equals(gender, patient.gender) && Objects.equals(blood, patient.blood) && Objects.equals(chronicdisease, patient.chronicdisease) && Objects.equals(diabetes, patient.diabetes) && Objects.equals(highFever, patient.highFever) && Objects.equals(fever, patient.fever) && Objects.equals(hypertension, patient.hypertension) && Objects.equals(cardiac, patient.cardiac) && Objects.equals(weaknessPain, patient.weaknessPain) && Objects.equals(respiratory, patient.respiratory) && Objects.equals(cancer, patient.cancer) && Objects.equals(thyroid, patient.thyroid) && Objects.equals(prostate, patient.prostate) && Objects.equals(kidney, patient.kidney) && Objects.equals(neuro, patient.neuro) && Objects.equals(nausea, patient.nausea) && Objects.equals(asymptomatic, patient.asymptomatic) && Objects.equals(gastrointestinal, patient.gastrointestinal) && Objects.equals(admissionDate, patient.admissionDate) && Objects.equals(hospital, patient.hospital) && Objects.equals(disease, patient.disease);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, cnic, gender, age, blood, chronicdisease, diabetes, highFever, fever, hypertension, cardiac, weaknessPain, respiratory, cancer, thyroid, prostate, kidney, neuro, nausea, asymptomatic, gastrointestinal, others, admissionDate, hospital, disease);
+        return Objects.hash(id, firstName, lastName, cnic, gender, age, blood, chronicdisease, diabetes, highFever, fever, hypertension, cardiac, weaknessPain, respiratory, cancer, thyroid, prostate, kidney, neuro, nausea, asymptomatic, gastrointestinal, admissionDate, hospital, disease);
     }
 
     public Hospital getHospital() {return hospital;}

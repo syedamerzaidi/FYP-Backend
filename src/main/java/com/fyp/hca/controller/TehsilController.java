@@ -3,46 +3,74 @@ package com.fyp.hca.controller;
 import com.fyp.hca.entity.Tehsil;
 import com.fyp.hca.services.TehsilService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/tehsil")
 public class TehsilController {
+    private final TehsilService tehsilService;
+
     @Autowired
-    TehsilService tehsilService;
-
-    @PostMapping(value = "/tehsil/add")
-    public void addTehsil(@RequestBody Tehsil tehsil){
-        tehsilService.addTehsil(tehsil);
+    public TehsilController(TehsilService tehsilService) {
+        this.tehsilService = tehsilService;
     }
 
-    @GetMapping(value = "/tehsil/get")
-    public List<Tehsil> getTehsil(){
-        return tehsilService.getTehsil();
+    @PostMapping("/add")
+    public ResponseEntity<String> addTehsil(@RequestBody Tehsil tehsil){
+        try {
+            tehsilService.addTehsil(tehsil);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Tehsil added successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while adding tehsil");
+        }
     }
 
-    @GetMapping(value = "/tehsil/get/{id}")
-    public Optional<Tehsil> getTehsilById(@PathVariable Integer id){
-        return tehsilService.getTehsilById(id);
+    @GetMapping("/get")
+    public ResponseEntity<List<Tehsil>> getTehsil(){
+        List<Tehsil> tehsils = tehsilService.getTehsil();
+        return ResponseEntity.ok().body(tehsils);
     }
 
-    @GetMapping(value = "/tehsil/getIdAndName")
-    public List<Map<String,?>> getTehsilIdAndName(){
-        return tehsilService.getTehsilIdAndName();
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getTehsilById(@PathVariable Integer id){
+        Optional<Tehsil> tehsil = tehsilService.getTehsilById(id);
+        if (tehsil.isPresent()) {
+            return ResponseEntity.ok().body(tehsil.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Tehsil not found");
+        }
     }
 
-
-    @DeleteMapping(value = "/tehsil/delete/{id}")
-    public void deleteTehsil(@PathVariable Integer id){
-        tehsilService.deleteTehsil(id);
+    @GetMapping("/getIdAndName")
+    public ResponseEntity<?> getTehsilIdAndName(){
+        List<Object[]> result = tehsilService.getTehsilIdAndName();
+        return ResponseEntity.ok().body(result);
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteTehsil(@PathVariable Integer id){
+        try {
+            if (tehsilService.isTehsilAssociated(id)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot delete Tehsil. It is associated with Hospital or User.");
+            }
+            tehsilService.deleteTehsil(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Tehsil deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting tehsil");
+        }
     }
 
-    @PutMapping(value = "/tehsil/update")
-    public void updateTehsil(@RequestBody Tehsil tehsil){
-        tehsilService.updateTehsil(tehsil);
+    @PutMapping("/update")
+    public ResponseEntity<String> updateTehsil(@RequestBody Tehsil tehsil){
+        try {
+            tehsilService.updateTehsil(tehsil);
+            return ResponseEntity.status(HttpStatus.OK).body("Tehsil updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while updating tehsil");
+        }
     }
-
 }

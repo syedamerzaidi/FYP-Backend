@@ -4,6 +4,8 @@ import com.fyp.hca.entity.Hospital;
 import com.fyp.hca.entity.Tehsil;
 import com.fyp.hca.entity.Users;
 import com.fyp.hca.repositories.HospitalRepository;
+import com.fyp.hca.repositories.PatientRepository;
+import com.fyp.hca.repositories.UsersRepository;
 import org.hibernate.annotations.SecondaryRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,15 @@ import java.util.Optional;
 @Service
 public class HospitalService {
     @Autowired
-    HospitalRepository hospitalRepository;
+    private final HospitalRepository hospitalRepository;
+    private final PatientRepository patientRepository;
+    private final UsersRepository userRepository;
 
-    public HospitalService(HospitalRepository hospitalRepository) {
+    @Autowired
+    public HospitalService(HospitalRepository hospitalRepository, PatientRepository patientRepository, UsersRepository userRepository) {
         this.hospitalRepository = hospitalRepository;
+        this.patientRepository = patientRepository;
+        this.userRepository = userRepository;
     }
 
     public void addHospital(Hospital hospital) {
@@ -43,5 +50,9 @@ public class HospitalService {
     public List<Hospital> getHospitalIdAndName() {
         return hospitalRepository.findHospitalIdAndName();
     }
-
+    public boolean isHospitalAssociated(Integer hospitalId) {
+        long patientCount = patientRepository.countByHospitalId(hospitalId);
+        long userCount = userRepository.countByHospitalId(hospitalId);
+        return patientCount > 0 || userCount > 0;
+    }
 }

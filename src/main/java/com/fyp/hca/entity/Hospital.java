@@ -2,12 +2,14 @@ package com.fyp.hca.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
+@Getter
+@Setter
 @Entity
 public class Hospital extends BaseEntity{
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id"/*,columnDefinition = "serial"*/,nullable = false)
@@ -27,29 +29,6 @@ public class Hospital extends BaseEntity{
     @OneToOne(optional = true, cascade = CascadeType.ALL, mappedBy = "hospital")
     private Users user;
 
-    public Hospital() {}
-    public Hospital(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-    public void setId(int id) {this.id = id;}
-
-    public String getName() {return name;}
-
-    public void setName(String name) {this.name = name;}
-
-    public String getCode() {return code;}
-
-    public void setCode(String code) {this.code = code;}
-
-    public String getAddress() {return address;}
-
-    public void setAddress(String address) {this.address = address;}
-
-    public String getHospitalType() {return hospitalType;}
-
-    public void setHospitalType(String hospitalType) {this.hospitalType = hospitalType;}
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,7 +42,4 @@ public class Hospital extends BaseEntity{
         return Objects.hash(id, name, code, address, hospitalType, tehsil);
     }
 
-    public Tehsil getTehsil() {return tehsil;}
-
-    public void setTehsil(Tehsil tehsil) {this.tehsil = tehsil;}
 }

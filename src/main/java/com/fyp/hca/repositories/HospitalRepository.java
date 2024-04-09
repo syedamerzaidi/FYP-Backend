@@ -12,4 +12,6 @@ import java.util.List;
 public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
     @Query("SELECT new com.fyp.hca.entity.Hospital(h.id, h.name) FROM Hospital h")
     List<Hospital> findHospitalIdAndName();
+
+    long countByTehsilId(Integer tehsilId);
 }

@@ -1,10 +1,14 @@
 package com.fyp.hca.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Collection;
 import java.util.Objects;
 
+@Getter
+@Setter
 @Entity
 public class Province extends BaseEntity{
     @Id
@@ -17,29 +21,6 @@ public class Province extends BaseEntity{
 
     @OneToOne(optional = true, cascade = CascadeType.ALL, mappedBy = "province")
     private Users user;
-
-    public Province() {
-    }
-    public Province(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Override
     public boolean equals(Object o) {

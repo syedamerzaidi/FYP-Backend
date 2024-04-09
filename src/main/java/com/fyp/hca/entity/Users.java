@@ -45,11 +45,7 @@ public class Users extends BaseEntity {
     @JoinColumn(name = "hospital_id", referencedColumnName = "id",nullable = true, unique = false)
     private Hospital hospital;
 
-    public Users() {
-    }
-
     // Constructors, getters, and setters
-
 
     @Override
     public boolean equals(Object o) {

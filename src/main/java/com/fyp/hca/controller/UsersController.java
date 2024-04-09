@@ -9,8 +9,12 @@ import java.util.Optional;
 @RestController
 public class UsersController {
 
+    private final UsersService userService;
+
     @Autowired
-    private UsersService userService;
+    public UsersController(UsersService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping(value = "user/add")
     public void addUsers(@RequestBody Users users){
@@ -43,8 +47,8 @@ public class UsersController {
             @RequestParam String password){
         return userService.isValidUser(email,password);
     }
-    @GetMapping(value = "user/getall")
-    public List<Users> getallUsers(@RequestParam(defaultValue = "0") Integer pageNo,
+    @GetMapping(value = "user/get-all-users")
+    public List<Users> getAllUsers(@RequestParam(defaultValue = "0") Integer pageNo,
                                 @RequestParam(defaultValue = "10") Integer pageSize){
         return userService.getallUsers(pageNo, pageSize);
     }
