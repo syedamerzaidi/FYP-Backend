@@ -1,48 +1,78 @@
 package com.fyp.hca.controller;
 
-
-import com.fyp.hca.entity.District;
 import com.fyp.hca.entity.Division;
 import com.fyp.hca.services.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/division")
 public class DivisionController {
 
+    private final DivisionService divisionService;
+
     @Autowired
-    DivisionService divisionService;
-
-    @PostMapping(value = "/division/add")
-    public void addDivision(@RequestBody Division division){
-        divisionService.addDivision(division);
+    public DivisionController(DivisionService divisionService) {
+        this.divisionService = divisionService;
     }
 
-    @GetMapping(value = "/division/get")
-    public List<Division> getDivision(){
-        return divisionService.getDivision();
+    @PostMapping("/add")
+    public ResponseEntity<String> addDivision(@RequestBody Division division) {
+        try {
+            divisionService.addDivision(division);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Division added successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while adding division");
+        }
     }
 
-    @GetMapping(value = "/division/get/{id}")
-    public Optional<Division> getDivisionById(@PathVariable Integer id){
-        return divisionService.getDivisionById(id);
+    @GetMapping("/get")
+    public ResponseEntity<List<Division>> getDivision() {
+        List<Division> divisions = divisionService.getDivision();
+        return ResponseEntity.ok().body(divisions);
     }
 
-    @GetMapping(value = "/division/getIdAndName")
-    public List<Division> getDivisionIdAndName(){
-        return divisionService.getDivisionIdAndName();
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getDivisionById(@PathVariable Integer id) {
+        Optional<Division> division = divisionService.getDivisionById(id);
+        if (division.isPresent()) {
+            return ResponseEntity.ok().body(division.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Division not found");
+        }
     }
 
-    @DeleteMapping(value = "/division/delete/{id}")
-    public void deleteDivision(@PathVariable Integer id){
-        divisionService.deleteDivision(id);
+    @GetMapping("/getIdAndName")
+    public ResponseEntity<?> getDivisionIdAndName() {
+        List<Division> divisions = divisionService.getDivisionIdAndName();
+        return ResponseEntity.ok().body(divisions);
     }
 
-    @PutMapping(value = "/division/update")
-    public void updateDivision(@RequestBody Division division){
-        divisionService.updateDivision(division);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteDivision(@PathVariable Integer id) {
+        try {
+            if (divisionService.isDivisionAssociated(id)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot delete Division. It is associated with something.");
+            }
+            divisionService.deleteDivision(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Division deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting division");
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> updateDivision(@RequestBody Division division) {
+        try {
+            divisionService.updateDivision(division);
+            return ResponseEntity.status(HttpStatus.OK).body("Division updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while updating division");
+        }
     }
 }

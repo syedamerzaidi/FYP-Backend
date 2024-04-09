@@ -12,5 +12,7 @@ import java.util.List;
 @Repository
 public interface DistrictRepository extends JpaRepository<District, Integer> {
     @Query("SELECT new com.fyp.hca.entity.District(t.id, t.name) FROM District t")
-    List<District> findDistrictIdAndName();
+    List<Object[]> findDistrictIdAndName();
+
+    long countByDivisionId(Integer divisionId);
 }

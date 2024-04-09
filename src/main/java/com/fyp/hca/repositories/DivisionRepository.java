@@ -11,4 +11,6 @@ public interface DivisionRepository extends JpaRepository<Division, Integer> {
 
     @Query("SELECT new com.fyp.hca.entity.Division(t.id, t.name) FROM Division t")
     List<Division> findDivisionIdAndName();
+
+    long countByProvinceId(Integer provinceId);
 }

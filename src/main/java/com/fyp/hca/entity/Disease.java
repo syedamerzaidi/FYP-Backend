@@ -1,10 +1,13 @@
 package com.fyp.hca.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.sql.Timestamp;
 import java.util.Objects;
 
+@Getter
+@Setter
 @Entity
 public class Disease extends BaseEntity{
 
@@ -21,50 +24,7 @@ public class Disease extends BaseEntity{
     private String symptoms;
     @Column(name = "causes", nullable = true, length = -1)
     private String causes;
-
-    public Disease() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getSymptoms() {
-        return symptoms;
-    }
-
-    public void setSymptoms(String symptoms) {
-        this.symptoms = symptoms;
-    }
-
-    public String getCauses() {
-        return causes;
-    }
-
-    public void setCauses(String causes) {
-        this.causes = causes;
-    }
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,48 +1,78 @@
 package com.fyp.hca.controller;
 
-import com.fyp.hca.entity.Division;
 import com.fyp.hca.entity.Hospital;
 import com.fyp.hca.services.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/hospital")
 public class HospitalController {
 
+    private final HospitalService hospitalService;
+
     @Autowired
-    private HospitalService hospitalService;
-
-    @PostMapping(value = "hospital/add")
-    public void addHospital(@RequestBody Hospital hospital){
-        hospitalService.addHospital(hospital);
+    public HospitalController(HospitalService hospitalService) {
+        this.hospitalService = hospitalService;
+    }
+    @PostMapping("/add")
+    public ResponseEntity<String> addHospital(@RequestBody Hospital hospital) {
+        try {
+            hospitalService.addHospital(hospital);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Hospital added successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while adding hospital");
+        }
     }
 
-    @GetMapping(value = "hospital/get")
-    public List<Hospital> getHospitals(){
-        return hospitalService.getHospitals();
+    @GetMapping("/get")
+    public ResponseEntity<List<Hospital>> getHospitals() {
+        List<Hospital> hospitals = hospitalService.getHospitals();
+        return ResponseEntity.ok().body(hospitals);
     }
 
-    @GetMapping(value="hospital/getid/{id}")
-    public Optional<Hospital> getHospitalById(@PathVariable Integer id){
-        return hospitalService.getHospitalById(id);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getHospitalById(@PathVariable Integer id) {
+        Optional<Hospital> hospital = hospitalService.getHospitalById(id);
+        if (hospital.isPresent()) {
+            return ResponseEntity.ok().body(hospital.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Hospital not found");
+        }
     }
 
-    @DeleteMapping(value = "/hospital/delete/{id}")
-    public void deleteHospital(@PathVariable Integer id){
-        hospitalService.deleteHospital(id);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteHospital(@PathVariable Integer id) {
+        try {
+            if (hospitalService.isHospitalAssociated(id)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot delete Hospital. It is associated with patients or users.");
+            }
+            hospitalService.deleteHospital(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Hospital deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting hospital");
+        }
     }
 
-    @PutMapping(value = "/hospital/update")
-    public void updateHospital(@RequestBody Hospital hospital){
-        hospitalService.updateHospital(hospital);
+
+    @PutMapping("/update")
+    public ResponseEntity<String> updateHospital(@RequestBody Hospital hospital) {
+        try {
+            hospitalService.updateHospital(hospital);
+            return ResponseEntity.status(HttpStatus.OK).body("Hospital updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while updating hospital");
+        }
     }
 
-    @GetMapping(value = "/hospital/getIdAndName")
-    public List<Hospital> getHospitalIdAndName(){
-        return hospitalService.getHospitalIdAndName();
+    @GetMapping("/getIdAndName")
+    public ResponseEntity<?> getHospitalIdAndName() {
+        List<Hospital> hospitals = hospitalService.getHospitalIdAndName();
+        return ResponseEntity.ok().body(hospitals);
     }
-
 }

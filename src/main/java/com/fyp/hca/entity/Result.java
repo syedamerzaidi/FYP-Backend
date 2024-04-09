@@ -1,10 +1,14 @@
 package com.fyp.hca.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.util.Objects;
 
+@Getter
+@Setter
 @Entity
 public class Result extends BaseEntity{
     @Id
@@ -18,18 +22,6 @@ public class Result extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "hospital_id", referencedColumnName = "id", nullable = false)
     private Hospital hospital;
-
-    public int getId() {return id;}
-
-    public void setId(int id) {this.id = id;}
-
-    public int getNumberOfUpcomingPatients() {return numberOfUpcomingPatients;}
-
-    public void setNumberOfUpcomingPatients(int numberOfUpcomingPatients) {this.numberOfUpcomingPatients = numberOfUpcomingPatients;}
-
-    public Date getDate() {return date;}
-
-    public void setDate(Date date) {this.date = date;}
 
     @Override
     public boolean equals(Object o) {
