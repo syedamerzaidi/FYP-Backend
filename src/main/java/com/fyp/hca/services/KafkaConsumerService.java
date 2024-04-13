@@ -1,7 +1,5 @@
 package com.fyp.hca.services;
 
-import com.fyp.hca.entity.Disease;
-import com.fyp.hca.entity.Hospital;
 import com.fyp.hca.entity.Patient;
 import com.fyp.hca.repositories.DiseaseRepository;
 import com.fyp.hca.repositories.HospitalRepository;
