@@ -21,8 +21,9 @@ public class KafkaProducerService {
     public void sendMessage(String message) {
         try {
             kafkaTemplate.send(topic, message);
+            System.out.println("Message sent successfully");
         } catch (Exception e) {
-            throw new RuntimeException("Error sending message: " + e.getMessage());
+            System.err.println("Error sending message: " + e.getMessage());
         }
     }
 }

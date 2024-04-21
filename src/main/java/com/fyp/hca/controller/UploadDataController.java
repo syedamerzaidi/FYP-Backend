@@ -21,7 +21,7 @@ public class UploadDataController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("hospitalId") Integer hospitalId,@RequestParam("diseaseId")Integer diseaseId) {
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("hospitalId") int hospitalId,@RequestParam("diseaseId")int diseaseId) {
         try {
             String message = uploadDataService.uploadFile(file, hospitalId, diseaseId);
             return new ResponseEntity<>(message, HttpStatus.OK);

@@ -1,7 +1,5 @@
 package com.fyp.hca.services;
 
-import com.fyp.hca.entity.Disease;
-import com.fyp.hca.entity.Hospital;
 import com.fyp.hca.entity.Patient;
 import com.fyp.hca.repositories.DiseaseRepository;
 import com.fyp.hca.repositories.HospitalRepository;
@@ -32,7 +30,7 @@ public class KafkaConsumerService {
     @KafkaListener(topics = "${kafka.topic}", groupId = "${spring.kafka.consumer.group-id}")
     public void listen(String message) {
         String[] parts = message.split(",");
-        if (parts.length == 30) {
+        if (parts.length == 22) {
             try {
                 Patient patient = createPatient(parts);
                 patientRepository.save(patient);
@@ -45,60 +43,40 @@ public class KafkaConsumerService {
     }
 
     private Patient createPatient(String[] parts) throws ParseException {
-        try {
-            int hospitalId = Integer.parseInt(parts[28].trim());
-            int diseaseId = Integer.parseInt(parts[29].trim());
+        int hospitalId = Integer.parseInt(parts[21].trim());
+        int diseaseId = Integer.parseInt(parts[22].trim());
 
-            Patient patient = new Patient();
-            patient.setFirstName(parts[0].trim());
-            patient.setLastName(parts[1].trim());
-            patient.setCnic(parts[2].trim());
-            patient.setAdmissionDate(new Date(new SimpleDateFormat("MM/dd/yyyy").parse(parts[4].trim()).getTime()));
-            String ageString = parts[3].trim();
-            if (ageString.contains("-")) {
-                String[] ageRange = ageString.split("-");
-                int ageStart = Integer.parseInt(ageRange[0].trim());
-                int ageEnd = Integer.parseInt(ageRange[1].trim());
-                int averageAge = (ageStart + ageEnd) / 2;
-                patient.setAge(averageAge);
-            } else {
-                patient.setAge(Integer.parseInt(ageString));
-            }
-            patient.setChronicdisease(Boolean.parseBoolean(parts[5].trim()));
-            boolean generbinary = Boolean.parseBoolean(parts[6].trim());
-            if (generbinary) {
-                patient.setGender("Male");
-            } else {
-                patient.setGender("Female");
-            }
-            patient.setDeathBinary(Boolean.parseBoolean(parts[7].trim()));
-            patient.setRespiratory(Boolean.parseBoolean(parts[8].trim()));
-            patient.setWeaknessPain(Boolean.parseBoolean(parts[9].trim()));
-            patient.setFever(Boolean.parseBoolean(parts[10].trim()));
-            patient.setGastrointestinal(Boolean.parseBoolean(parts[11].trim()));
-            patient.setNausea(Boolean.parseBoolean(parts[12].trim()));
-            patient.setCardiac(Boolean.parseBoolean(parts[13].trim()));
-            patient.setHighFever(Boolean.parseBoolean(parts[14].trim()));
-            patient.setKidney(Boolean.parseBoolean(parts[15].trim()));
-            patient.setAsymptomatic(Boolean.parseBoolean(parts[16].trim()));
-            patient.setDiabetes(Boolean.parseBoolean(parts[17].trim()));
-            patient.setNeuro(Boolean.parseBoolean(parts[18].trim()));
-            patient.setHypertension(Boolean.parseBoolean(parts[19].trim()));
-            patient.setCancer(Boolean.parseBoolean(parts[20].trim()));
-            patient.setOrtho(Boolean.parseBoolean(parts[21].trim()));
-            patient.setRespiratoryCD(Boolean.parseBoolean(parts[22].trim()));
-            patient.setCardiacsCD(Boolean.parseBoolean(parts[23].trim()));
-            patient.setKidneyCD(Boolean.parseBoolean(parts[24].trim()));
-            patient.setBlood(Boolean.parseBoolean(parts[25].trim()));
-            patient.setProstate(Boolean.parseBoolean(parts[26].trim()));
-            patient.setThyroid(Boolean.parseBoolean(parts[27].trim()));
-            patient.setHospital(hospitalRepository.findById(hospitalId)
-                    .orElseThrow(() -> new RuntimeException("Hospital not found")));
-            patient.setDisease(diseaseRepository.findById(diseaseId)
-                    .orElseThrow(() -> new RuntimeException("Disease not found")));
-            return patient;
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to create patient: " + e.getMessage());
-        }
+        Patient patient = new Patient();
+        patient.setFirstName(parts[0].trim());
+        patient.setLastName(parts[1].trim());
+        patient.setCnic(parts[2].trim());
+        patient.setAge(Integer.parseInt(parts[3].trim()));
+        patient.setAdmissionDate(new Date(new SimpleDateFormat("yyyy-MM-dd").parse(parts[4].trim()).getTime()));
+        patient.setChronicdisease(parts[5].trim());
+        patient.setGender(parts[6].trim());
+        patient.setRespiratory(parseBoolean(parts[7]));
+        patient.setWeaknessPain(parseBoolean(parts[8]));
+        patient.setFever(parseBoolean(parts[9]));
+        patient.setGastrointestinal(parseBoolean(parts[10]));
+        patient.setNausea(parseBoolean(parts[11]));
+        patient.setCardiac(parseBoolean(parts[12]));
+        patient.setHighFever(parseBoolean(parts[13]));
+        patient.setKidney(parseBoolean(parts[14]));
+        patient.setAsymptomatic(parseBoolean(parts[15]));
+        patient.setDiabetes(parseBoolean(parts[16]));
+        patient.setNeuro(parseBoolean(parts[17]));
+        patient.setHypertension(parseBoolean(parts[18]));
+        patient.setCancer(parseBoolean(parts[19]));
+        patient.setThyroid(parseBoolean(parts[20]));
+        patient.setHospital(hospitalRepository.findById(hospitalId)
+                .orElseThrow(() -> new RuntimeException("Hospital not found")));
+        patient.setDisease(diseaseRepository.findById(diseaseId)
+                .orElseThrow(() -> new RuntimeException("Disease not found")));
+
+        return patient;
+    }
+
+    private boolean parseBoolean(String value) {
+        return Boolean.parseBoolean(value.trim());
     }
 }
