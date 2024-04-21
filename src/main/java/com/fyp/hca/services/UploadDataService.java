@@ -2,7 +2,6 @@ package com.fyp.hca.services;
 
 import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,9 +18,6 @@ import java.util.Objects;
 @Service
 public class UploadDataService {
     private final KafkaProducerService kafkaProducerService;
-
-    @Value("${kafka.upload.topic}")
-    private String uploadTopic;
 
     @Autowired
     public UploadDataService(KafkaProducerService kafkaProducerService) {
@@ -57,7 +53,7 @@ public class UploadDataService {
             String[] parts = allRows.get(i);
             if (parts.length == 28) {
                 String message = String.join(",", parts) + "," + hospitalId + "," + diseaseId;
-                kafkaProducerService.sendMessage(uploadTopic,message);
+                kafkaProducerService.sendMessage(message);
             } else
                 System.out.println("Csv data does not contain 28 columns");
         }
