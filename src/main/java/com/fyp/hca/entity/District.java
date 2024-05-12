@@ -35,8 +35,4 @@ public class District extends BaseEntity{
     public int hashCode() {
         return Objects.hash(id, name, division);
     }
-
-    public void setDivision(Division division) {
-        this.division = division;
-    }
 }
