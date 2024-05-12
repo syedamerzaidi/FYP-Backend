@@ -3,9 +3,14 @@ FROM maven:3.8.4-openjdk-17 AS build
 COPY . .
 RUN mvn clean package -DskipTests
 
-FROM openjdk17:alpine-jre
+# Use the official OpenJDK image as the base image
+FROM openjdk:17-jdk-slim
 
+# Copy the built JAR file from the build stage
 COPY --from=build /target/*.jar app.jar
+
+# Expose the port that your application listens on
 EXPOSE 8080
+
 # Command to run the application
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
