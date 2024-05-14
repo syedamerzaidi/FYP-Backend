@@ -1,13 +1,9 @@
 package com.fyp.hca.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Objects;
 
-@Getter
-@Setter
 @Entity
 public class District extends BaseEntity{
     @Id
@@ -16,12 +12,19 @@ public class District extends BaseEntity{
     private int id;
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,optional = true)
     @JoinColumn(name = "division_id", referencedColumnName = "id", nullable = true)
     private Division division;
 
-    @OneToOne(optional = true, cascade = CascadeType.ALL, mappedBy = "district")
-    private Users user;
+
+    public District(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public District() {
+
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -34,5 +37,29 @@ public class District extends BaseEntity{
     @Override
     public int hashCode() {
         return Objects.hash(id, name, division);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Division getDivision() {
+        return division;
+    }
+
+    public void setDivision(Division division) {
+        this.division = division;
     }
 }

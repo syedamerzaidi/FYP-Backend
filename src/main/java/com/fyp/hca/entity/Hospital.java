@@ -1,13 +1,9 @@
 package com.fyp.hca.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Objects;
 
-@Getter
-@Setter
 @Entity
 public class Hospital extends BaseEntity{
     @Id
@@ -26,8 +22,31 @@ public class Hospital extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "tehsil_id", referencedColumnName = "id", nullable = true)
     private Tehsil tehsil;
-    @OneToOne(optional = true, cascade = CascadeType.ALL, mappedBy = "hospital")
-    private Users user;
+
+    public Hospital(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Hospital() {
+    }
+
+    public Hospital(int id, String name, String code, String address, String hospitalType) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.address = address;
+        this.hospitalType = hospitalType;
+    }
+
+    public Hospital(int id, String name, String code, String address, String hospitalType, Tehsil tehsil) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.address = address;
+        this.hospitalType = hospitalType;
+        this.tehsil = tehsil;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -42,4 +61,51 @@ public class Hospital extends BaseEntity{
         return Objects.hash(id, name, code, address, hospitalType, tehsil);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getHospitalType() {
+        return hospitalType;
+    }
+
+    public void setHospitalType(String hospitalType) {
+        this.hospitalType = hospitalType;
+    }
+
+    public Tehsil getTehsil() {
+        return tehsil;
+    }
+
+    public void setTehsil(Tehsil tehsil) {
+        this.tehsil = tehsil;
+    }
 }

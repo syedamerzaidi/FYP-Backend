@@ -2,7 +2,6 @@ package com.fyp.hca.services;
 
 import com.fyp.hca.entity.Users;
 import com.fyp.hca.repositories.UsersRepository;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-@Getter
 @Service
 public class UsersService {
     UsersRepository usersRepository;
@@ -54,6 +52,9 @@ public class UsersService {
         Pageable paging = PageRequest.of(pageNo, pageSize);
         Page<Users> pagedResult = usersRepository.findAll(paging);
         return pagedResult.toList();
+    }
+    public List<Users> getallUsers2() {
+       return new ArrayList<Users>(usersRepository.findAll());
     }
 
 }

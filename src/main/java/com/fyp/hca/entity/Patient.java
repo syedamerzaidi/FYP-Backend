@@ -1,14 +1,10 @@
 package com.fyp.hca.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.sql.Date;
 import java.util.Objects;
 
-@Getter
-@Setter
 @Entity
 public class Patient extends BaseEntity {
     @Id
@@ -90,5 +86,253 @@ public class Patient extends BaseEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, cnic, gender, age, blood, chronicdisease, diabetes, highFever, fever, hypertension, cardiac, weaknessPain, respiratory, cancer, thyroid, prostate, kidney, neuro, nausea, asymptomatic, gastrointestinal, ortho, respiratoryCD, cardiacsCD, kidneyCD, admissionDate, deathBinary, hospital, disease);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getCnic() {
+        return cnic;
+    }
+
+    public void setCnic(String cnic) {
+        this.cnic = cnic;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Boolean getBlood() {
+        return blood;
+    }
+
+    public void setBlood(Boolean blood) {
+        this.blood = blood;
+    }
+
+    public Boolean getChronicdisease() {
+        return chronicdisease;
+    }
+
+    public void setChronicdisease(Boolean chronicdisease) {
+        this.chronicdisease = chronicdisease;
+    }
+
+    public Boolean getDiabetes() {
+        return diabetes;
+    }
+
+    public void setDiabetes(Boolean diabetes) {
+        this.diabetes = diabetes;
+    }
+
+    public Boolean getHighFever() {
+        return highFever;
+    }
+
+    public void setHighFever(Boolean highFever) {
+        this.highFever = highFever;
+    }
+
+    public Boolean getFever() {
+        return fever;
+    }
+
+    public void setFever(Boolean fever) {
+        this.fever = fever;
+    }
+
+    public Boolean getHypertension() {
+        return hypertension;
+    }
+
+    public void setHypertension(Boolean hypertension) {
+        this.hypertension = hypertension;
+    }
+
+    public Boolean getCardiac() {
+        return cardiac;
+    }
+
+    public void setCardiac(Boolean cardiac) {
+        this.cardiac = cardiac;
+    }
+
+    public Boolean getWeaknessPain() {
+        return weaknessPain;
+    }
+
+    public void setWeaknessPain(Boolean weaknessPain) {
+        this.weaknessPain = weaknessPain;
+    }
+
+    public Boolean getRespiratory() {
+        return respiratory;
+    }
+
+    public void setRespiratory(Boolean respiratory) {
+        this.respiratory = respiratory;
+    }
+
+    public Boolean getCancer() {
+        return cancer;
+    }
+
+    public void setCancer(Boolean cancer) {
+        this.cancer = cancer;
+    }
+
+    public Boolean getThyroid() {
+        return thyroid;
+    }
+
+    public void setThyroid(Boolean thyroid) {
+        this.thyroid = thyroid;
+    }
+
+    public Boolean getProstate() {
+        return prostate;
+    }
+
+    public void setProstate(Boolean prostate) {
+        this.prostate = prostate;
+    }
+
+    public Boolean getKidney() {
+        return kidney;
+    }
+
+    public void setKidney(Boolean kidney) {
+        this.kidney = kidney;
+    }
+
+    public Boolean getNeuro() {
+        return neuro;
+    }
+
+    public void setNeuro(Boolean neuro) {
+        this.neuro = neuro;
+    }
+
+    public Boolean getNausea() {
+        return nausea;
+    }
+
+    public void setNausea(Boolean nausea) {
+        this.nausea = nausea;
+    }
+
+    public Boolean getAsymptomatic() {
+        return asymptomatic;
+    }
+
+    public void setAsymptomatic(Boolean asymptomatic) {
+        this.asymptomatic = asymptomatic;
+    }
+
+    public Boolean getGastrointestinal() {
+        return gastrointestinal;
+    }
+
+    public void setGastrointestinal(Boolean gastrointestinal) {
+        this.gastrointestinal = gastrointestinal;
+    }
+
+    public Boolean getOrtho() {
+        return ortho;
+    }
+
+    public void setOrtho(Boolean ortho) {
+        this.ortho = ortho;
+    }
+
+    public Boolean getRespiratoryCD() {
+        return respiratoryCD;
+    }
+
+    public void setRespiratoryCD(Boolean respiratoryCD) {
+        this.respiratoryCD = respiratoryCD;
+    }
+
+    public Boolean getCardiacsCD() {
+        return cardiacsCD;
+    }
+
+    public void setCardiacsCD(Boolean cardiacsCD) {
+        this.cardiacsCD = cardiacsCD;
+    }
+
+    public Boolean getKidneyCD() {
+        return kidneyCD;
+    }
+
+    public void setKidneyCD(Boolean kidneyCD) {
+        this.kidneyCD = kidneyCD;
+    }
+
+    public Date getAdmissionDate() {
+        return admissionDate;
+    }
+
+    public void setAdmissionDate(Date admissionDate) {
+        this.admissionDate = admissionDate;
+    }
+
+    public Boolean getDeathBinary() {
+        return deathBinary;
+    }
+
+    public void setDeathBinary(Boolean deathBinary) {
+        this.deathBinary = deathBinary;
+    }
+
+    public Hospital getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
+    }
+
+    public Disease getDisease() {
+        return disease;
+    }
+
+    public void setDisease(Disease disease) {
+        this.disease = disease;
     }
 }

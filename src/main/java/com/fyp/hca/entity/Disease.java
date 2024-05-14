@@ -1,13 +1,10 @@
 package com.fyp.hca.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Objects;
 
-@Getter
-@Setter
+
 @Entity
 public class Disease extends BaseEntity{
 
@@ -36,5 +33,45 @@ public class Disease extends BaseEntity{
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, symptoms, causes);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(String symptoms) {
+        this.symptoms = symptoms;
+    }
+
+    public String getCauses() {
+        return causes;
+    }
+
+    public void setCauses(String causes) {
+        this.causes = causes;
     }
 }

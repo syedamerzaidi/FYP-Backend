@@ -12,12 +12,9 @@ public class Tehsil extends BaseEntity{
     private int id;
     @Column(name = "name", nullable = false, length = 255)
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,optional = true)
     @JoinColumn(name = "district_id", referencedColumnName = "id", nullable = true)
     private District district;
-
-    @OneToOne(optional = true, cascade = CascadeType.ALL, mappedBy = "tehsil")
-    private Users user;
 
     public Tehsil() {
     }

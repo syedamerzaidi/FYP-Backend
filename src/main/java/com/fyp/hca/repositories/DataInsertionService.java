@@ -1,3 +1,4 @@
+/*
 package com.fyp.hca.repositories;
 
 import com.fyp.hca.entity.*;
@@ -32,7 +33,7 @@ public class DataInsertionService {
     protected UsersRepository usersRepository;
 
     public void insertDummyData() {
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 10; i++) {
             Disease disease = new Disease();
             disease.setName("Disease " + i);
             disease.setDescription("Description of disease " + i);
@@ -48,19 +49,19 @@ public class DataInsertionService {
             province.setName(provinceName);
             provinceRepository.save(province);
 
-            for (int i = 1; i <= 30; i++) {
+            for (int i = 1; i <= 7; i++) {
                 Division division = new Division();
                 division.setProvince(province);
                 division.setName("Division " + i + " of " + provinceName);
                 divisionRepository.save(division);
 
-                for (int j = 1; j <= 10; j++) {
+                for (int j = 1; j <= 4; j++) {
                     District district = new District();
                     district.setDivision(division);
                     district.setName("District " + ((i - 1) * 10 + j) + " of Division " + i + " of " + provinceName);
                     districtRepository.save(district);
 
-                    for (int k = 1; k <= 10; k++) {
+                    for (int k = 1; k <= 2; k++) {
                         Tehsil tehsil = new Tehsil();
                         tehsil.setDistrict(district);
                         tehsil.setName("Tehsil " + ((i - 1) * 100 + (j - 1) * 10 + k) + " of District " + ((i - 1) * 10 + j) + " of Division " + i + " of " + provinceName);
@@ -71,7 +72,7 @@ public class DataInsertionService {
         }
 
         // Insert dummy data for hospitals
-        for (int i = 1; i <= 1000; i++) {
+        for (int i = 1; i <= 30; i++) {
             Hospital hospital = new Hospital();
             hospital.setTehsil(tehsilRepository.findById((i % 100) + 1).orElse(null)); // Assign hospitals in round-robin fashion to tehsils
             hospital.setCode("Code " + i);
@@ -85,14 +86,15 @@ public class DataInsertionService {
         // Insert dummy data for users
 
 // Create sets to store used foreign key ids
-        Set<Integer> hospitalIds = new HashSet<>();
+        */
+/*Set<Integer> hospitalIds = new HashSet<>();
         Set<Integer> tehsilIds = new HashSet<>();
         Set<Integer> districtIds = new HashSet<>();
         Set<Integer> divisionIds = new HashSet<>();
         Set<Integer> provinceIds = new HashSet<>();
         String[] USER_TYPES = {"Super Administrator", "Province Administrator", "Division Administrator", "District Administrator", "Tehsil Administrator", "Hospital Administrator"};
 
-        for (int i = 1; i <= 1000; i++) {
+        for (int i = 1; i <= 30; i++) {
             Users user = new Users();
             user.setFirstName("First Name " + i);
             user.setLastName("Last Name " + i);
@@ -146,7 +148,9 @@ public class DataInsertionService {
 
             System.out.println("User inserted: " + user.getFirstName());
             usersRepository.save(user);
-        }
+        }*//*
+
 
     }
 }
+*/

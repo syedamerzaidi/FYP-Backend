@@ -14,12 +14,9 @@ public class Division extends BaseEntity{
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER,optional = true)
     @JoinColumn(name = "province_id", referencedColumnName = "id", nullable = true)
     private Province province;
-
-    @OneToOne(optional = true, cascade = CascadeType.ALL, mappedBy = "division")
-    private Users user;
 
     public Division() {
     }

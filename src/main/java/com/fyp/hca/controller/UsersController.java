@@ -52,6 +52,9 @@ public class UsersController {
                                 @RequestParam(defaultValue = "10") Integer pageSize){
         return userService.getallUsers(pageNo, pageSize);
     }
-
+    @GetMapping(value = "user/get-all-users2")
+    public List<Users> getAllUsers2(){
+        return userService.getallUsers2();
+    }
 
 }
