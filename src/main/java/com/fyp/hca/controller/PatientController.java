@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +23,8 @@ public class PatientController {
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
     }
+
+
     @PostMapping("/add")
     public ResponseEntity<String> addPatient(@RequestBody Patient patient) {
         try {
@@ -62,6 +68,28 @@ public class PatientController {
             return ResponseEntity.status(HttpStatus.OK).body("Patient updated successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while updating patient");
+        }
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadCSVFile(@RequestParam("file") MultipartFile file) {
+        if (file.isEmpty()) {
+            return new ResponseEntity<>("File is empty", HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            patientService.savePatientsFromCSV(file);
+
+            String uploadDir = "D:\\latest\\Kafka_Running_service_for_files_processing\\processing";
+            String fileName = file.getOriginalFilename();
+            Path filePath = Paths.get(uploadDir, fileName);
+            Files.createDirectories(filePath.getParent());
+            Files.write(filePath, file.getBytes());
+
+            return new ResponseEntity<>("File uploaded successfully", HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to upload file", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

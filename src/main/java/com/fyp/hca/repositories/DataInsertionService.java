@@ -1,4 +1,3 @@
-/*
 package com.fyp.hca.repositories;
 
 import com.fyp.hca.entity.*;
@@ -86,8 +85,7 @@ public class DataInsertionService {
         // Insert dummy data for users
 
 // Create sets to store used foreign key ids
-        */
-/*Set<Integer> hospitalIds = new HashSet<>();
+        /*Set<Integer> hospitalIds = new HashSet<>();
         Set<Integer> tehsilIds = new HashSet<>();
         Set<Integer> districtIds = new HashSet<>();
         Set<Integer> divisionIds = new HashSet<>();
@@ -148,9 +146,7 @@ public class DataInsertionService {
 
             System.out.println("User inserted: " + user.getFirstName());
             usersRepository.save(user);
-        }*//*
-
+        }*/
 
     }
 }
-*/
