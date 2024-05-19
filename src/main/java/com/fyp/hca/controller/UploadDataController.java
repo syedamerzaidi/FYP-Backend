@@ -13,7 +13,7 @@ import java.io.IOException;
 @Controller
 public class UploadDataController {
 
-    private final UploadDataService uploadDataService;
+    /*private final UploadDataService uploadDataService;
 
     @Autowired
     public UploadDataController(UploadDataService uploadDataService) {
@@ -28,5 +28,5 @@ public class UploadDataController {
         } catch (IOException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 }

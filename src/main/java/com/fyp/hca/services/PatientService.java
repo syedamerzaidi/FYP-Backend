@@ -50,13 +50,18 @@ public class PatientService {
     public void savePatientsFromCSV(MultipartFile file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             String line;
+            boolean isFirstLine = true;
             while ((line = reader.readLine()) != null) {
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
                 String[] data = line.split(",");
                 Patient patient = new Patient();
 
                 patient.setFirstName(data[0]);
                 patient.setLastName(data[1]);
-               patient.setCnic(data[2]);
+                patient.setCnic(data[2]);
                 patient.setGender(data[3]);
                 patient.setAge(Integer.parseInt(data[4]));
                 patient.setBlood(Boolean.parseBoolean(data[5]));

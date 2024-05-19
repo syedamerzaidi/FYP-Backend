@@ -18,7 +18,7 @@ import java.util.Objects;
 
 @Service
 public class UploadDataService {
-    private final KafkaProducerService kafkaProducerService;
+    /*private final KafkaProducerService kafkaProducerService;
 
     @Value("${kafka.upload.topic}")
     private String uploadTopic;
@@ -61,5 +61,5 @@ public class UploadDataService {
             } else
                 System.out.println("Csv data does not contain 28 columns");
         }
-    }
+    }*/
 }

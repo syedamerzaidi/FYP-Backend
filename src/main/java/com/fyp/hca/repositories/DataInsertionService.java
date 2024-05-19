@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Repository
-public class DataInsertionService {
+public class DataInsertionService {/*
 
     @Autowired
     public DiseaseRepository diseaseRepository;
@@ -146,7 +146,7 @@ public class DataInsertionService {
 
             System.out.println("User inserted: " + user.getFirstName());
             usersRepository.save(user);
-        }*/
+        }
 
-    }
+    }*/
 }

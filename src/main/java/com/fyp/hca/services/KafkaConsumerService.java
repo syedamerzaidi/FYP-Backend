@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 public class KafkaConsumerService {
 
 
-    private final PatientRepository patientRepository;
+    /*private final PatientRepository patientRepository;
     private final HospitalRepository hospitalRepository;
     private final DiseaseRepository diseaseRepository;
 
@@ -99,5 +99,5 @@ public class KafkaConsumerService {
         } catch (Exception e) {
             throw new RuntimeException("Failed to create patient: " + e.getMessage());
         }
-    }
+    }*/
 }
