@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -49,7 +50,7 @@ public class DivisionController {
 
     @GetMapping("/getIdAndName")
     public ResponseEntity<?> getDivisionIdAndName() {
-        List<Division> divisions = divisionService.getDivisionIdAndName();
+        List<Map<String, Object>> divisions = divisionService.getDivisionIdAndName();
         return ResponseEntity.ok().body(divisions);
     }
 

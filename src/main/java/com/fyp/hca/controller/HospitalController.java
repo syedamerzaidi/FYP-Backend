@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -72,7 +73,7 @@ public class HospitalController {
 
     @GetMapping("/getIdAndName")
     public ResponseEntity<?> getHospitalIdAndName() {
-        List<Hospital> hospitals = hospitalService.getHospitalIdAndName();
+        List<Map<String, Object>> hospitals = hospitalService.getHospitalIdAndName();
         return ResponseEntity.ok().body(hospitals);
     }
 }

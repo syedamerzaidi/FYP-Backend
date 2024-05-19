@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -49,7 +50,7 @@ public class DistrictController {
 
     @GetMapping("/getIdAndName")
     public ResponseEntity<?> getDistrictIdAndName(){
-        List<Object[]> result = districtService.getDistrictIdAndName();
+        List<Map<String, Object>> result = districtService.getDistrictIdAndName();
         return ResponseEntity.ok().body(result);
     }
 

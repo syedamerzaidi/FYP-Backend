@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -48,7 +49,7 @@ public class TehsilController {
 
     @GetMapping("/getIdAndName")
     public ResponseEntity<?> getTehsilIdAndName(){
-        List<Object[]> result = tehsilService.getTehsilIdAndName();
+        List<Map<String, Object>> result = tehsilService.getTehsilIdAndName();
         return ResponseEntity.ok().body(result);
     }
     @DeleteMapping("/delete/{id}")

@@ -8,11 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface DistrictRepository extends JpaRepository<District, Integer> {
-    @Query("SELECT new com.fyp.hca.entity.District(t.id, t.name) FROM District t")
-    List<Object[]> findDistrictIdAndName();
+    @Query("SELECT t.id as id, t.name as name FROM District t")
+    List<Map<String, Object>> findDistrictIdAndName();
 
     long countByDivisionId(Integer divisionId);
 }

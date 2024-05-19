@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -47,7 +48,7 @@ public class HospitalService {
     public void updateHospital(Hospital hospital) {
         hospitalRepository.save(hospital);
     }
-    public List<Hospital> getHospitalIdAndName() {
+    public List<Map<String, Object>> getHospitalIdAndName() {
         return hospitalRepository.findHospitalIdAndName();
     }
     public boolean isHospitalAssociated(Integer hospitalId) {

@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
-    @Query("SELECT new com.fyp.hca.entity.Hospital(h.id, h.name) FROM Hospital h")
-    List<Hospital> findHospitalIdAndName();
+    @Query("SELECT h.id as id, h.name as name FROM Hospital h")
+    List<Map<String, Object>> findHospitalIdAndName();
 
     long countByTehsilId(Integer tehsilId);
 }
