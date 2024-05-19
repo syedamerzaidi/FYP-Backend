@@ -37,7 +37,7 @@ public class Users extends BaseEntity {
     @Column(name = "password", nullable = false, length = 255)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = true)
+    @OneToOne(optional = true)
     @JoinColumn(name = "province_id", referencedColumnName = "id", nullable = true, unique = false)
     private Province province;
 
