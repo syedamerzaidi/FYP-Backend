@@ -56,4 +56,8 @@ public class HospitalService {
         long userCount = userRepository.countByHospitalId(hospitalId);
         return patientCount > 0 || userCount > 0;
     }
+
+    public List<Map<String, Object>> getHospitalIdAndNameByTehsilIds(List<Integer> tehsilIds) {
+        return hospitalRepository.findHospitalIdAndNameByTehsilIds(tehsilIds);
+    }
 }

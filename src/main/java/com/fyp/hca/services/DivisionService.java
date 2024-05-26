@@ -52,4 +52,8 @@ public class DivisionService {
         long userCount = userRepository.countByTehsilId(divisionId);
         return districtCount > 0 || userCount > 0;
     }
+    public List<Map<String, Object>> getDivisionByProvinceIds(List<Integer> provinceIds) {
+        return divisionRepository.findDivisionIdAndNameByProvinceIds(provinceIds);
+    }
+
 }

@@ -74,4 +74,15 @@ public class TehsilController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while updating tehsil");
         }
     }
+
+    @GetMapping("/getTehsilsByDistrictIds")
+    public ResponseEntity<List<Map<String, Object>>> getTehsilsByDistrictIds(@RequestParam List<Integer> districtIds) {
+        try {
+            List<Map<String, Object>> tehsils = tehsilService.getTehsilIdAndNameByDistrictIds(districtIds);
+            return ResponseEntity.ok().body(tehsils);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }

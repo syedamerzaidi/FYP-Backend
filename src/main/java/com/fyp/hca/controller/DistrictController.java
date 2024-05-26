@@ -76,4 +76,15 @@ public class DistrictController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while updating district");
         }
     }
+
+    @GetMapping("/getDistrictsByDivisionIds")
+    public ResponseEntity<List<Map<String, Object>>> getDistrictsByDivisionIds(@RequestParam  List<Integer> divisionIds) {
+        try {
+            List<Map<String, Object>> districts = districtService.getDistrictIdAndNameByDivisionIds(divisionIds);
+            return ResponseEntity.ok().body(districts);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }

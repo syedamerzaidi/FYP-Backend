@@ -16,4 +16,8 @@ public interface DistrictRepository extends JpaRepository<District, Integer> {
     List<Map<String, Object>> findDistrictIdAndName();
 
     long countByDivisionId(Integer divisionId);
+
+    @Query("SELECT d.id as id, d.name as name FROM District d WHERE d.division.id IN :divisionIds")
+    List<Map<String, Object>> findDistrictIdAndNameByDivisionIds(List<Integer> divisionIds);
+
 }

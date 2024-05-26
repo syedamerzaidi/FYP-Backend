@@ -76,4 +76,14 @@ public class DivisionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while updating division");
         }
     }
+    @GetMapping("/getDivisionsByProvinceIds")
+    public ResponseEntity<List<Map<String, Object>>> getDivisionsByProvinceIds(@RequestParam List<Integer> provinceIds) {
+        try {
+            List<Map<String, Object>> divisions = divisionService.getDivisionByProvinceIds(provinceIds);
+            return ResponseEntity.ok().body(divisions);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }

@@ -52,4 +52,9 @@ public class DistrictService {
         long userCount = userRepository.countByTehsilId(districtId);
         return tehsilCount > 0 || userCount > 0;
     }
+
+    public List<Map<String, Object>> getDistrictIdAndNameByDivisionIds(List<Integer> divisionIds) {
+        return districtRepository.findDistrictIdAndNameByDivisionIds(divisionIds);
+    }
+
 }

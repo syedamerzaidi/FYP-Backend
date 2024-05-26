@@ -52,4 +52,8 @@ public class TehsilService {
         long userCount = userRepository.countByTehsilId(tehsilId);
        return hospitalCount > 0 || userCount > 0;
     }
+
+    public List<Map<String, Object>> getTehsilIdAndNameByDistrictIds(List<Integer> districtIds) {
+        return tehsilRepository.findTehsilIdAndNameByDistrictIds(districtIds);
+    }
 }
