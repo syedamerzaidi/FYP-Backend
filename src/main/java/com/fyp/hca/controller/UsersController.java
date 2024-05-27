@@ -43,8 +43,8 @@ public class UsersController {
 
     @GetMapping(value = "/user/login")
     public Optional<Users> handleLogin(
-            @RequestParam String email,
-            @RequestParam String password){
+            @RequestParam("email") String email,
+            @RequestParam("password") String password){
         return userService.isValidUser(email,password);
     }
     @GetMapping(value = "user/get-all-users")

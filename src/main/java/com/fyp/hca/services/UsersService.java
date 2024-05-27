@@ -45,7 +45,7 @@ public class UsersService {
     }
 
     public Optional<Users> isValidUser(String email, String password) {
-        return usersRepository.findByEmailAndPassword(email,password);
+        return Optional.ofNullable(usersRepository.findByEmailAndPassword(email, password).orElse(null));
     }
 
     public List<Users> getallUsers(Integer pageNo, Integer pageSize) {
