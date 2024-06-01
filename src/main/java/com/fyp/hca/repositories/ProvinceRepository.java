@@ -12,4 +12,6 @@ import java.util.Map;
 public interface ProvinceRepository extends JpaRepository<Province, Integer> {
     @Query("SELECT p.id as id, p.name as name FROM Province p")
     List<Map<String, Object>> findProvinceIdAndName();
+    @Query("SELECT p.id as id, p.name as name FROM Province p where p.id=:provinceId")
+    List<Map<String, Object>> findProvinceIdAndNameById(Integer provinceId);
 }

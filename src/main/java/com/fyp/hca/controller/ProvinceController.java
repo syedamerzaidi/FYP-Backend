@@ -31,7 +31,7 @@ public class ProvinceController {
     }
 
     @GetMapping("province/getIdAndName")
-    public ResponseEntity<?> getTehsilIdAndName(){
+    public ResponseEntity<?> getProvinceIdAndName(){
         List<Map<String, Object>> result = provinceService.getProvinceIdAndName();
         return ResponseEntity.ok().body(result);
     }
@@ -44,5 +44,12 @@ public class ProvinceController {
     @PutMapping(value = "/province/update")
     public void updateProvince(@RequestBody Province province){
         provinceService.updateProvince(province);
+    }
+
+    @GetMapping("province/getIdAndNameById")
+    public ResponseEntity<?> getProvinceIdAndNameById(@RequestParam("provinceId") Integer provinceId)
+    {
+        List<Map<String, Object>> result = provinceService.getProvinceIdAndNameById(provinceId);
+        return ResponseEntity.ok().body(result);
     }
 }

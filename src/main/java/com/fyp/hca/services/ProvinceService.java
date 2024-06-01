@@ -42,4 +42,8 @@ public class ProvinceService {
     {
         return provinceRepository.findProvinceIdAndName();
     }
+    public List<Map<String, Object>> getProvinceIdAndNameById(Integer provinceId)
+    {
+        return provinceRepository.findProvinceIdAndNameById(provinceId);
+    }
 }
