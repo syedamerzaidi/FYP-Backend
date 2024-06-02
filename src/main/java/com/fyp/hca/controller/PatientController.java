@@ -41,6 +41,12 @@ public class PatientController {
         return ResponseEntity.ok().body(patients);
     }
 
+    @GetMapping("/getPatientsByHospitalId/{hospitalId}")
+    public ResponseEntity<List<Patient>> getPatientsByHospitalId(@PathVariable Integer hospitalId) {
+        List<Patient> patients = patientService.getPatientsByHospitalId(hospitalId);
+        return ResponseEntity.ok().body(patients);
+    }
+
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getPatientById(@PathVariable Integer id) {
         Optional<Patient> patient = patientService.getPatientById(id);

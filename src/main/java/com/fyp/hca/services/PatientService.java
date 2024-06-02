@@ -35,6 +35,9 @@ public class PatientService {
     public List<Patient> getPatients() {
         return new ArrayList<Patient>(patientRepository.findAll());
     }
+    public List<Patient> getPatientsByHospitalId(Integer hospitalId) {
+        return new ArrayList<Patient>(patientRepository.findByHospitalId(hospitalId));
+    }
 
     public void deletePatient(Integer id) {
         patientRepository.deleteById(id);
