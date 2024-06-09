@@ -18,4 +18,5 @@ public interface TehsilRepository extends JpaRepository<Tehsil, Integer> {
     @Query("SELECT t.id as id, t.name as name FROM Tehsil t WHERE t.district.id IN :districtIds")
     List<Map<String, Object>> findTehsilIdAndNameByDistrictIds(List<Integer> districtIds);
 
+    int findByDistrictId(int districtId);
 }

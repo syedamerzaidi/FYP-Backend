@@ -19,4 +19,5 @@ public interface DivisionRepository extends JpaRepository<Division, Integer> {
     @Query("SELECT t.id as id, t.name as name FROM Division t WHERE t.province.id IN :provinceIds")
     List<Map<String, Object>> findDivisionIdAndNameByProvinceIds(List<Integer> provinceIds);
 
+    int findByProvinceId(int provinceId);
 }

@@ -19,4 +19,5 @@ public interface HospitalRepository extends JpaRepository<Hospital, Integer> {
     @Query("SELECT h.id as id, h.name as name FROM Hospital h WHERE h.tehsil.id IN :tehsilIds")
     List<Map<String, Object>> findHospitalIdAndNameByTehsilIds(List<Integer> tehsilIds);
 
+    int findByTehsilId(int tehsilId);
 }

@@ -1,12 +1,9 @@
 package com.fyp.hca.services;
 
 import com.fyp.hca.entity.Hospital;
-import com.fyp.hca.entity.Tehsil;
-import com.fyp.hca.entity.Users;
 import com.fyp.hca.repositories.HospitalRepository;
 import com.fyp.hca.repositories.PatientRepository;
 import com.fyp.hca.repositories.UsersRepository;
-import org.hibernate.annotations.SecondaryRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
