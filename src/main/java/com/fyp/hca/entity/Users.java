@@ -28,14 +28,18 @@ public class Users extends BaseEntity {
     @Column(name = "contact", nullable = false, length = 255)
     private String contact;
 
-    @Column(name = "cnic", nullable = false, length = 255)
+    @Column(name = "cnic", nullable = false, length = 255, unique = true)
     private String cnic;
 
-    @Column(name = "email", nullable = false, length = 255)
+    @Column(name = "email", nullable = false, length = 255, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false, length = 255)
     private String password;
+
+    @Lob
+    @Column(name="profile_picture",columnDefinition = "BYTEA")
+    private byte[] profilePicture;
 
     @OneToOne(optional = true)
     @JoinColumn(name = "province_id", referencedColumnName = "id", nullable = true, unique = false)
