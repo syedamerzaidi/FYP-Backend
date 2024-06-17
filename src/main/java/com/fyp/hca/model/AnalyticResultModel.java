@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 public class AnalyticResultModel {
     private StatisticResponseModel statisticResponse;
+    private DynamicTimeChartData dynamicTimeChartData;
 }

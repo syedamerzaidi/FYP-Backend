@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,25 @@ public class DashboardService {
         } else {
             filteredpatients = applyFilters(totalPatientsRecords, filters, diseaseId);
         }
+        Map<Date, Long> admissionDateCounts = filteredpatients.stream()
+                .collect(Collectors.groupingBy(Patient::getAdmissionDate, Collectors.counting()));
+
+        List<List<Object>> dataPoints = admissionDateCounts.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(entry -> {
+                    List<Object> dataPoint = new ArrayList<>();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                    String formattedDate = dateFormat.format(entry.getKey());
+                    dataPoint.add(formattedDate);
+                    dataPoint.add(entry.getValue().intValue());
+                    return dataPoint;
+                })
+                .collect(Collectors.toList());
+
+        DynamicTimeChartData dynamicAreaTimeChart = new DynamicTimeChartData(dataPoints);
+        result.setDynamicTimeChartData(dynamicAreaTimeChart);
+
+
         result.setStatisticResponse(calculateStatistics(filteredpatients, totalPatients));
         return result;
     }
