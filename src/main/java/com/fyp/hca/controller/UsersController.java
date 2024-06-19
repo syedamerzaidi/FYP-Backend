@@ -30,6 +30,11 @@ public class UsersController {
         userService.saveWithImg(user,file);
     }
 
+    @PostMapping(value = "/user/addNewUser", consumes = {"multipart/form-data"})
+    public void addNewUsers(Users user,@RequestParam("file") MultipartFile file) throws SQLException, IOException {
+        userService.saveaddNewUsersWithImg(user,file);
+    }
+
     @GetMapping(value = "user/get")
     public List<Users> getUsers(){
         return userService.getUsers();
