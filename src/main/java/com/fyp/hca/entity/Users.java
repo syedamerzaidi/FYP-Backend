@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Data
@@ -38,7 +39,7 @@ public class Users extends BaseEntity {
     private String password;
 
     @Lob
-    @Column(name="profile_picture",columnDefinition = "BYTEA")
+    @Column(name="profile_picture")
     private byte[] profilePicture;
 
     @OneToOne(optional = true)

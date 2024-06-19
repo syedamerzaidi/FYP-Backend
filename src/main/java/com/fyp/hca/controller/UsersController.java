@@ -3,6 +3,10 @@ import com.fyp.hca.entity.Users;
 import com.fyp.hca.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +23,11 @@ public class UsersController {
     @PostMapping(value = "user/add")
     public void addUsers(@RequestBody Users users){
         userService.save(users);
+    }
+
+    @PutMapping(value = "/user/addUser", consumes = {"multipart/form-data"})
+    public void addUsers(Users user,@RequestParam("file") MultipartFile file) throws SQLException, IOException {
+        userService.saveWithImg(user,file);
     }
 
     @GetMapping(value = "user/get")
@@ -42,19 +51,9 @@ public class UsersController {
     }
 
     @GetMapping(value = "/user/login")
-    public Optional<Users> handleLogin(
+    public Users handleLogin(
             @RequestParam("email") String email,
             @RequestParam("password") String password){
         return userService.isValidUser(email,password);
     }
-    @GetMapping(value = "user/get-all-users")
-    public List<Users> getAllUsers(@RequestParam(defaultValue = "0") Integer pageNo,
-                                @RequestParam(defaultValue = "10") Integer pageSize){
-        return userService.getallUsers(pageNo, pageSize);
-    }
-    @GetMapping(value = "user/get-all-users2")
-    public List<Users> getAllUsers2(){
-        return userService.getallUsers2();
-    }
-
 }
