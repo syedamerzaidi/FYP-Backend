@@ -29,19 +29,6 @@ public class UsersService {
         usersRepository.save(users);
     }
 
-    public void saveWithImg(Users user,MultipartFile file) throws IOException {
-        if (file.isEmpty()) {
-            throw new IOException("File is empty");
-        }
-        try {
-            user.setProfilePicture(file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e; // rethrow the IOException to be handled at a higher level
-        }
-        usersRepository.save(user);
-    }
-
     public void saveaddNewUsersWithImg(Users user,MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             throw new IOException("File is empty");
