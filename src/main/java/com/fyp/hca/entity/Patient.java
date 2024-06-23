@@ -15,7 +15,7 @@ public class Patient extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = true)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "first_name", nullable = false, length = 255)
@@ -24,7 +24,7 @@ public class Patient extends BaseEntity {
     @Column(name = "last_name", nullable = false, length = 255)
     private String lastName;
 
-    @Column(name = "cnic", nullable = true, length = 255)
+    @Column(name = "cnic", nullable = true, length = 255, unique = true)
     private String cnic;
 
     @Column(name = "gender", nullable = true, length = 255)

@@ -18,4 +18,7 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
     long countByProvinceId(Integer provinceId);
 
     long countByHospitalId(Integer hospitalId);
+    @Query("SELECT COUNT(u) = 1 FROM Users u WHERE u.id = :userId AND u.usertype = :usertype")
+    boolean existsByIdAndUsertype(Integer userId, String usertype);
+
 }

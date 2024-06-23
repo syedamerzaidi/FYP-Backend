@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -72,7 +73,17 @@ public class HospitalController {
 
     @GetMapping("/getIdAndName")
     public ResponseEntity<?> getHospitalIdAndName() {
-        List<Hospital> hospitals = hospitalService.getHospitalIdAndName();
+        List<Map<String, Object>> hospitals = hospitalService.getHospitalIdAndName();
         return ResponseEntity.ok().body(hospitals);
+    }
+
+    @GetMapping("/getHospitalsByTehsilIds")
+    public ResponseEntity<List<Map<String, Object>>> getHospitalsByTehsilIds(@RequestParam List<Integer> tehsilIds) {
+        try {
+            List<Map<String, Object>> hospitals = hospitalService.getHospitalIdAndNameByTehsilIds(tehsilIds);
+            return ResponseEntity.ok().body(hospitals);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

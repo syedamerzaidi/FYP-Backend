@@ -3,9 +3,11 @@ package com.fyp.hca.controller;
 import com.fyp.hca.entity.Province;
 import com.fyp.hca.services.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +30,11 @@ public class ProvinceController {
         return provinceService.getProvinceById(id);
     }
 
+    @GetMapping("province/getIdAndName")
+    public ResponseEntity<?> getProvinceIdAndName(){
+        List<Map<String, Object>> result = provinceService.getProvinceIdAndName();
+        return ResponseEntity.ok().body(result);
+    }
 
     @DeleteMapping(value = "/province/delete/{id}")
     public void deleteProvince(@PathVariable Integer id){
@@ -37,5 +44,12 @@ public class ProvinceController {
     @PutMapping(value = "/province/update")
     public void updateProvince(@RequestBody Province province){
         provinceService.updateProvince(province);
+    }
+
+    @GetMapping("province/getIdAndNameById")
+    public ResponseEntity<?> getProvinceIdAndNameById(@RequestParam("provinceId") Integer provinceId)
+    {
+        List<Map<String, Object>> result = provinceService.getProvinceIdAndNameById(provinceId);
+        return ResponseEntity.ok().body(result);
     }
 }

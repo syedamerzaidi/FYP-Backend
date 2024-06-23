@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -36,5 +37,13 @@ public class ProvinceService {
 
     public void updateProvince(Province province) {
         provinceRepository.save(province);
+    }
+    public List<Map<String, Object>> getProvinceIdAndName()
+    {
+        return provinceRepository.findProvinceIdAndName();
+    }
+    public List<Map<String, Object>> getProvinceIdAndNameById(Integer provinceId)
+    {
+        return provinceRepository.findProvinceIdAndNameById(provinceId);
     }
 }

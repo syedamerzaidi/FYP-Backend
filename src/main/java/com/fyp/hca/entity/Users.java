@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Data
@@ -28,16 +29,20 @@ public class Users extends BaseEntity {
     @Column(name = "contact", nullable = false, length = 255)
     private String contact;
 
-    @Column(name = "cnic", nullable = false, length = 255)
+    @Column(name = "cnic", nullable = false, length = 255, unique = true)
     private String cnic;
 
-    @Column(name = "email", nullable = false, length = 255)
+    @Column(name = "email", nullable = false, length = 255, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false, length = 255)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = true)
+    @Lob
+    @Column(name="profile_picture")
+    private byte[] profilePicture;
+
+    @OneToOne(optional = true)
     @JoinColumn(name = "province_id", referencedColumnName = "id", nullable = true, unique = false)
     private Province province;
 

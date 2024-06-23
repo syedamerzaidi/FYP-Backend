@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -49,7 +50,7 @@ public class DistrictController {
 
     @GetMapping("/getIdAndName")
     public ResponseEntity<?> getDistrictIdAndName(){
-        List<Object[]> result = districtService.getDistrictIdAndName();
+        List<Map<String, Object>> result = districtService.getDistrictIdAndName();
         return ResponseEntity.ok().body(result);
     }
 
@@ -75,4 +76,15 @@ public class DistrictController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while updating district");
         }
     }
+
+    @GetMapping("/getDistrictsByDivisionIds")
+    public ResponseEntity<List<Map<String, Object>>> getDistrictsByDivisionIds(@RequestParam  List<Integer> divisionIds) {
+        try {
+            List<Map<String, Object>> districts = districtService.getDistrictIdAndNameByDivisionIds(divisionIds);
+            return ResponseEntity.ok().body(districts);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }

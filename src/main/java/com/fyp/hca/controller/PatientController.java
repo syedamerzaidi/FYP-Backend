@@ -41,6 +41,12 @@ public class PatientController {
         return ResponseEntity.ok().body(patients);
     }
 
+    @GetMapping("/getPatientsByHospitalId/{hospitalId}")
+    public ResponseEntity<List<Patient>> getPatientsByHospitalId(@PathVariable Integer hospitalId) {
+        List<Patient> patients = patientService.getPatientsByHospitalId(hospitalId);
+        return ResponseEntity.ok().body(patients);
+    }
+
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getPatientById(@PathVariable Integer id) {
         Optional<Patient> patient = patientService.getPatientById(id);
@@ -72,13 +78,12 @@ public class PatientController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadCSVFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadCSVFile(@RequestParam("file") MultipartFile file,@RequestParam("hospitalId") Integer hospitalId, @RequestParam("diseaseId") Integer diseaseId ) {
         if (file.isEmpty()) {
             return new ResponseEntity<>("File is empty", HttpStatus.BAD_REQUEST);
         }
-
         try {
-            patientService.savePatientsFromCSV(file);
+            patientService.savePatientsFromCSV(file,hospitalId,diseaseId);
 
             String uploadDir = "D:\\latest\\Kafka_Running_service_for_files_processing\\processing";
             String fileName = file.getOriginalFilename();

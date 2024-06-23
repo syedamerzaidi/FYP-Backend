@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -35,7 +36,7 @@ public class TehsilService {
         return tehsilRepository.findById(id);
     }
 
-    public List<Object[]> getTehsilIdAndName() {
+    public List<Map<String, Object>> getTehsilIdAndName() {
         return tehsilRepository.findTehsilIdAndName();
     }
 
@@ -50,5 +51,9 @@ public class TehsilService {
         long hospitalCount = hospitalRepository.countByTehsilId(tehsilId);
         long userCount = userRepository.countByTehsilId(tehsilId);
        return hospitalCount > 0 || userCount > 0;
+    }
+
+    public List<Map<String, Object>> getTehsilIdAndNameByDistrictIds(List<Integer> districtIds) {
+        return tehsilRepository.findTehsilIdAndNameByDistrictIds(districtIds);
     }
 }

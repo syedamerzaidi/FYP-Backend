@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -48,7 +49,7 @@ public class TehsilController {
 
     @GetMapping("/getIdAndName")
     public ResponseEntity<?> getTehsilIdAndName(){
-        List<Object[]> result = tehsilService.getTehsilIdAndName();
+        List<Map<String, Object>> result = tehsilService.getTehsilIdAndName();
         return ResponseEntity.ok().body(result);
     }
     @DeleteMapping("/delete/{id}")
@@ -73,4 +74,15 @@ public class TehsilController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while updating tehsil");
         }
     }
+
+    @GetMapping("/getTehsilsByDistrictIds")
+    public ResponseEntity<List<Map<String, Object>>> getTehsilsByDistrictIds(@RequestParam List<Integer> districtIds) {
+        try {
+            List<Map<String, Object>> tehsils = tehsilService.getTehsilIdAndNameByDistrictIds(districtIds);
+            return ResponseEntity.ok().body(tehsils);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }

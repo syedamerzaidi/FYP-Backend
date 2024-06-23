@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -34,7 +35,7 @@ public class DivisionService {
         return divisionRepository.findById(id);
     }
 
-    public List<Division> getDivisionIdAndName() {
+    public List<Map<String, Object>> getDivisionIdAndName() {
         return divisionRepository.findDivisionIdAndName();
     }
 
@@ -51,4 +52,8 @@ public class DivisionService {
         long userCount = userRepository.countByTehsilId(divisionId);
         return districtCount > 0 || userCount > 0;
     }
+    public List<Map<String, Object>> getDivisionByProvinceIds(List<Integer> provinceIds) {
+        return divisionRepository.findDivisionIdAndNameByProvinceIds(provinceIds);
+    }
+
 }

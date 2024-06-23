@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DiseaseService {
@@ -40,5 +41,7 @@ public class DiseaseService {
         long patientCount = patientRepository.countByDiseaseId(diseaseId);
         return patientCount > 0;
     }
-
+    public List<Map<String, Object>> getDiseaseIdAndName() {
+        return diseaseRepository.findDiseaseIdAndName();
+    }
 }
