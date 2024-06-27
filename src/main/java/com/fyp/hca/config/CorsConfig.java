@@ -14,9 +14,10 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:5173");
-        config.addAllowedOrigin("https://medianalytics.vercel.app/");
-        config.addAllowedOrigin("https://medianalytix.netlify.app/");
+        config.setAllowCredentials(true);
+        config.addAllowedOriginPattern("http://localhost:5173"); 
+        config.addAllowedOriginPattern("https://medianalytics.vercel.app");
+        config.addAllowedOriginPattern("https://medianalytix.netlify.app");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         source.registerCorsConfiguration("/**", config);
