@@ -15,7 +15,7 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("http://localhost:5173"); 
+        config.addAllowedOriginPattern("http://localhost:5173");
         config.addAllowedOriginPattern("https://medianalytics.vercel.app");
         config.addAllowedOriginPattern("https://medianalytix.netlify.app");
         config.addAllowedMethod("*");

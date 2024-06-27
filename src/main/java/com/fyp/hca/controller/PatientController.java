@@ -1,6 +1,8 @@
 package com.fyp.hca.controller;
 
 import com.fyp.hca.entity.Patient;
+import com.fyp.hca.entity.Province;
+import com.fyp.hca.model.PaginatedResponse;
 import com.fyp.hca.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -96,5 +98,17 @@ public class PatientController {
             e.printStackTrace();
             return new ResponseEntity<>("Failed to upload file", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/getTableData")
+    public ResponseEntity<?> getTableData(
+            @RequestParam("start") int start,
+            @RequestParam("size") int size,
+            @RequestParam("filters") String filters,
+            @RequestParam("sorting") String sorting,
+            @RequestParam("globalFilter") String globalFilter
+    ) {
+        PaginatedResponse<Patient> result = patientService.getTableData(start, size, filters, sorting,globalFilter);
+        return ResponseEntity.ok().body(result);
     }
 }
