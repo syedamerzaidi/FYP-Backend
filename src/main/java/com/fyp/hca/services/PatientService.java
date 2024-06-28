@@ -90,14 +90,16 @@ public class PatientService {
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
-                patient.setChronicdisease(Boolean.parseBoolean(data[5]));
+
+                patient.setChronicdisease(verify(data[5]));
                 patient.setGender(data[6]);
-                patient.setDeathBinary(Boolean.parseBoolean(data[7]));
-                patient.setRespiratory(Boolean.parseBoolean(data[8]));
-                patient.setWeaknessPain(Boolean.parseBoolean(data[9]));
-                patient.setFever(Boolean.parseBoolean(data[10]));
-                patient.setGastrointestinal(Boolean.parseBoolean(data[11]));
-                patient.setNausea(Boolean.parseBoolean(data[12]));
+                patient.setDeathBinary(verify(data[7]));
+                patient.setRespiratory(verify(data[8]));
+                patient.setWeaknessPain(verify(data[9]));
+                Boolean bool = verify(data[10]);
+                patient.setFever(bool);
+                patient.setGastrointestinal(verify(data[11]));
+                patient.setNausea(verify(data[12]));
                 patient.setCardiac(Boolean.parseBoolean(data[13]));
                 patient.setHighFever(Boolean.parseBoolean(data[14]));
                 patient.setKidney(Boolean.parseBoolean(data[15]));
@@ -245,6 +247,14 @@ public class PatientService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private Boolean verify(String s){
+        if(s.equals("1")){
+            return true;
+        }else{
+            return false;
         }
     }
 
