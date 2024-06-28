@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/disease")
@@ -49,6 +50,15 @@ public class DiseaseController {
         }
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getDivisionById(@PathVariable Integer id) {
+        Optional<Disease> division = diseaseService.getDiseaseById(id);
+        if (division.isPresent()) {
+            return ResponseEntity.ok().body(division.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Disease not found");
+        }
+    }
 
     @PutMapping("/update")
     public ResponseEntity<String> updateDisease(@RequestBody Disease disease) {
@@ -69,4 +79,6 @@ public class DiseaseController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+
 }

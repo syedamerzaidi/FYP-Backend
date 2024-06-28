@@ -65,7 +65,7 @@ public class ProvinceService {
         Specification<Province> specification = parseFilters(filters, globalFilter);
 
         List<Province> provinces = provinceRepository.findAll(specification, pageable).getContent();
-        long totalCount = provinceRepository.count(specification);
+        long totalCount = provinceRepository.count();
 
         return new PaginatedResponse<>(provinces, totalCount);
     }

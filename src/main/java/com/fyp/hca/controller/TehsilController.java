@@ -1,6 +1,7 @@
 package com.fyp.hca.controller;
 
 import com.fyp.hca.entity.Tehsil;
+import com.fyp.hca.model.PaginatedResponse;
 import com.fyp.hca.services.TehsilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -83,6 +84,18 @@ public class TehsilController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
+    }
+
+    @GetMapping("/getTableData")
+    public ResponseEntity<?> getTableData(
+            @RequestParam("start") int start,
+            @RequestParam("size") int size,
+            @RequestParam("filters") String filters,
+            @RequestParam("sorting") String sorting,
+            @RequestParam("globalFilter") String globalFilter
+    ) {
+        PaginatedResponse<Tehsil> result = tehsilService.getTableData(start, size, filters, sorting,globalFilter);
+        return ResponseEntity.ok().body(result);
     }
 
 }
