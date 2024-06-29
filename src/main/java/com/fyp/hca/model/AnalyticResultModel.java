@@ -8,4 +8,7 @@ import lombok.Setter;
 public class AnalyticResultModel {
     private StatisticResponseModel statisticResponse;
     private DynamicTimeChartData dynamicTimeChartData;
+    private OrganChartData organChartData;
+    private BarRaceSymptoms barRaceSymptoms;
+    private ScatterAggregateBar scatterAggregateBar;
 }
