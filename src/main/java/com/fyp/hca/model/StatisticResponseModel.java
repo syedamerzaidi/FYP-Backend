@@ -15,4 +15,6 @@ public class StatisticResponseModel {
     private long PatientsChronicCount;
     private Date admissionStartDate;
     private Date admissionEndDate;
+    private long malePatientCount;
+    private long femalePatientCount;
 }

@@ -93,7 +93,7 @@ public class DashboardService {
         long cardiacsCDCount = filteredpatients.stream().filter(Patient::getCardiacsCD).count();
         long kidneyCDCount = filteredpatients.stream().filter(Patient::getKidneyCD).count();
         result.setBarRaceSymptoms(new BarRaceSymptoms(feverCount, highFeverCount, hypertensionCount, cardiacCount, weaknessPainCount, respiratoryCount, cancerCount, thyroidCount, prostateCount, kidneyCount, neuroCount, nauseaCount, asymptomaticCount, gastrointestinalCount, orthoCount, respiratoryCDCount, cardiacsCDCount, kidneyCDCount));
-        
+
         List<int[]> femaleData = filteredpatients.stream()
                 .filter(patient -> patient.getGender().toLowerCase().equals("0"))
                 .map(patient -> new int[]{patient.getAge(), patient.getDeathBinary() ? 1 : 0})
@@ -198,6 +198,12 @@ public class DashboardService {
 
         long chronicCount = filteredPatients.stream().filter(Patient::getChronicdisease).count();
         statistics.setPatientsChronicCount(chronicCount);
+
+        long malePatientCount= filteredPatients.stream().filter(patient -> "1".equals(patient.getGender())).count();
+        statistics.setMalePatientCount(malePatientCount);
+
+        long femalePatientCount= filteredPatients.stream().filter(patient -> "0".equals(patient.getGender())).count();
+        statistics.setFemalePatientCount(femalePatientCount);
 
         Date admissionStartDate = filteredPatients.stream()
                 .map(Patient::getAdmissionDate)
