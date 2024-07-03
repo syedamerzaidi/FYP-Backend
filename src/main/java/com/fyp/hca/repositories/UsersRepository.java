@@ -12,6 +12,8 @@ import java.util.Optional;
 public interface UsersRepository extends JpaRepository<Users, Integer>, JpaSpecificationExecutor<Users> {
     Optional<Users> findByEmailAndPassword(String username, String password);
 
+    Users findByEmail(String email);
+
     long countByTehsilId(Integer tehsilId);
 
     long countByHospitalId(Integer hospitalId);

@@ -209,4 +209,8 @@ public class UsersService {
             return false;
         }
     }
+
+    public Users getUserByName(String username) {
+        return usersRepository.findByEmail(username);
+    }
 }
