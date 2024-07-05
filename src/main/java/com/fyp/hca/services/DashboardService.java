@@ -148,6 +148,10 @@ public class DashboardService {
     private List<Patient> applyFilters(List<Patient> patients, FiltersRequestModel filters, Integer diseaseId) {
         if (filters == null) return patients;
         return patients.stream()
+                .filter(patient -> filters.getProvinceIds()==null || filters.getProvinceIds().isEmpty() || filters.getProvinceIds().contains(patient.getHospital().getTehsil().getDistrict().getDivision().getProvince().getId()))
+                .filter(patient -> filters.getDivisionIds() == null || filters.getDivisionIds().isEmpty() || filters.getDivisionIds().contains(patient.getHospital().getTehsil().getDistrict().getDivision().getId()))
+                .filter(patient -> filters.getDistrictIds() == null || filters.getDistrictIds().isEmpty() || filters.getDistrictIds().contains(patient.getHospital().getTehsil().getDistrict().getId()))
+                .filter(patient -> filters.getTehsilIds() == null || filters.getTehsilIds().isEmpty() || filters.getTehsilIds().contains(patient.getHospital().getTehsil().getId()))
                 .filter(patient -> filters.getHospitalIds() == null || filters.getHospitalIds().isEmpty() || filters.getHospitalIds().contains(patient.getHospital().getId()))
                 .filter(patient -> filters.getSymptoms() == null || filters.getSymptoms().isEmpty() || filters.getSymptoms().stream().allMatch(symptom -> hasSymptom(patient, symptom)))
                 .filter(patient -> filters.getAdmissionStartDate() == null || !patient.getAdmissionDate().before(filters.getAdmissionStartDate()))

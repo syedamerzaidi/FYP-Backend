@@ -62,4 +62,7 @@ public class Users extends BaseEntity {
     @JoinColumn(name = "hospital_id", referencedColumnName = "id",nullable = true, unique = false)
     private Hospital hospital;
 
+    public String getRole() {
+        return usertype;
+    }
 }
