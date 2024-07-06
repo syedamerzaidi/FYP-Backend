@@ -108,16 +108,16 @@ public class DashboardService {
 
         result.setScatterAggregateBar(new ScatterAggregateBar(femaleData, maleData));
             List<List<Object>> hospitalPatientCounts = filteredpatients.stream()
-                    .collect(Collectors.groupingBy(Patient::getHospitalName, Collectors.counting()))
+                    .collect(Collectors.groupingBy(patient -> Map.entry(patient.getHospitalName(), patient.getAdmissionYear()), Collectors.counting()))
                     .entrySet().stream()
                     .map(entry -> {
                         List<Object> hospitalCount = new ArrayList<>();
                         hospitalCount.add(entry.getValue().intValue());
-                        hospitalCount.add(entry.getKey());
+                        hospitalCount.add(entry.getKey().getKey()); // Hospital name
+                        hospitalCount.add(entry.getKey().getValue()); // Admission year
                         return hospitalCount;
                     })
                     .collect(Collectors.toList());
-
             result.setHospitalPatientCount(new HospitalPatientCount(hospitalPatientCounts));
 
             result.setDataPresent(true);

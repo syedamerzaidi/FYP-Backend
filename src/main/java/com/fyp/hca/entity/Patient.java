@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 
 @Entity
 @Data
@@ -113,4 +115,13 @@ public class Patient extends BaseEntity {
     public Object getHospitalName() {
         return hospital.getName();
     }
+    public int getAdmissionYear() {
+        if (admissionDate != null) {
+            LocalDate localDate = admissionDate.toLocalDate();
+            return localDate.get(ChronoField.YEAR);
+        } else {
+            return -1; // Handle cases where admissionDate is null
+        }
+    }
+
 }
