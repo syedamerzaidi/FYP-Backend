@@ -109,4 +109,8 @@ public class Patient extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "disease_id", referencedColumnName = "id")
     private Disease disease;
+
+    public Object getHospitalName() {
+        return hospital.getName();
+    }
 }

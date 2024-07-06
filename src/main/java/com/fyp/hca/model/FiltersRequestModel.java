@@ -9,6 +9,10 @@ import java.util.Date;
 
 @Data
 public class FiltersRequestModel {
+    public List<Integer> provinceIds;
+    public List<Integer> divisionIds;
+    public List<Integer> districtIds;
+    public List<Integer> tehsilIds;
     public List<Integer> hospitalIds;
     public List<String> symptoms;
     public Date admissionStartDate;

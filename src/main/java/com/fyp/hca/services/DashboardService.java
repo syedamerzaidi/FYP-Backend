@@ -40,6 +40,8 @@ public class DashboardService {
         AnalyticResultModel result = new AnalyticResultModel();
         Users user = usersRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        if (patientRepository.CountbyDiseaseId(diseaseId)>0)
+        {
         List<Patient> totalPatientsRecords = fetchPatientsByUserType(user, diseaseId);
         int totalPatients = totalPatientsRecords.size();
         List<Patient> filteredpatients;
@@ -105,7 +107,30 @@ public class DashboardService {
                 .collect(Collectors.toList());
 
         result.setScatterAggregateBar(new ScatterAggregateBar(femaleData, maleData));
+            List<List<Object>> hospitalPatientCounts = filteredpatients.stream()
+                    .collect(Collectors.groupingBy(Patient::getHospitalName, Collectors.counting()))
+                    .entrySet().stream()
+                    .map(entry -> {
+                        List<Object> hospitalCount = new ArrayList<>();
+                        hospitalCount.add(entry.getValue().intValue());
+                        hospitalCount.add(entry.getKey());
+                        return hospitalCount;
+                    })
+                    .collect(Collectors.toList());
 
+            result.setHospitalPatientCount(new HospitalPatientCount(hospitalPatientCounts));
+
+            result.setDataPresent(true);
+        }
+        else
+        {
+            result.setStatisticResponse(new StatisticResponseModel());
+            result.setDynamicTimeChartData(new DynamicTimeChartData(Collections.emptyList()));
+            result.setOrganChartData(new OrganChartData(0, 0, 0, 0, 0)); // Initialize with appropriate default values
+            result.setBarRaceSymptoms(new BarRaceSymptoms(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+            result.setScatterAggregateBar(new ScatterAggregateBar(Collections.emptyList(), Collections.emptyList()));
+            result.setDataPresent(false);
+        }
         return result;
     }
 
@@ -148,6 +173,10 @@ public class DashboardService {
     private List<Patient> applyFilters(List<Patient> patients, FiltersRequestModel filters, Integer diseaseId) {
         if (filters == null) return patients;
         return patients.stream()
+                .filter(patient -> filters.getProvinceIds() == null || filters.getProvinceIds().isEmpty() || filters.getProvinceIds().contains(patient.getHospital().getTehsil().getDistrict().getDivision().getProvince().getId()))
+                .filter(patient -> filters.getDivisionIds() == null || filters.getDivisionIds().isEmpty() || filters.getDivisionIds().contains(patient.getHospital().getTehsil().getDistrict().getDivision().getId()))
+                .filter(patient -> filters.getDistrictIds() == null || filters.getDistrictIds().isEmpty() || filters.getDistrictIds().contains(patient.getHospital().getTehsil().getDistrict().getId()))
+                .filter(patient -> filters.getTehsilIds() == null || filters.getTehsilIds().isEmpty() || filters.getTehsilIds().contains(patient.getHospital().getTehsil().getId()))
                 .filter(patient -> filters.getHospitalIds() == null || filters.getHospitalIds().isEmpty() || filters.getHospitalIds().contains(patient.getHospital().getId()))
                 .filter(patient -> filters.getSymptoms() == null || filters.getSymptoms().isEmpty() || filters.getSymptoms().stream().allMatch(symptom -> hasSymptom(patient, symptom)))
                 .filter(patient -> filters.getAdmissionStartDate() == null || !patient.getAdmissionDate().before(filters.getAdmissionStartDate()))

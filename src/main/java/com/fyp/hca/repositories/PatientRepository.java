@@ -33,4 +33,7 @@ public interface PatientRepository extends JpaRepository<Patient, Integer>, JpaS
 
     @Query("SELECT p FROM Patient p WHERE p.hospital.id = :hospitalId")
     List<Patient> findByHospitalId(@Param("hospitalId") Integer hospitalId);
+
+    @Query("SELECT count(*) FROM Patient p WHERE p.disease.id = :diseaseId")
+    int CountbyDiseaseId(Integer diseaseId);
 }

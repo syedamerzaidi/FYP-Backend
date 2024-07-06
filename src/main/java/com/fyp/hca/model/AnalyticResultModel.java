@@ -11,4 +11,6 @@ public class AnalyticResultModel {
     private OrganChartData organChartData;
     private BarRaceSymptoms barRaceSymptoms;
     private ScatterAggregateBar scatterAggregateBar;
+    private boolean dataPresent;
+    private HospitalPatientCount hospitalPatientCount;
 }
