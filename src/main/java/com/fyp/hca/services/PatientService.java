@@ -38,10 +38,12 @@ import java.util.*;
 public class PatientService {
     private final PatientRepository patientRepository;
     private final HospitalRepository hospitalRepository;
+    private final PredictionService predictionService;
     @Autowired
-    public PatientService(PatientRepository patientRepository,HospitalRepository hospitalRepository) {
+    public PatientService(PatientRepository patientRepository,HospitalRepository hospitalRepository,PredictionService predictionService) {
         this.patientRepository = patientRepository;
         this.hospitalRepository = hospitalRepository;
+        this.predictionService= predictionService;
     }
 
     public void addPatient(Patient patient) {
@@ -126,6 +128,8 @@ public class PatientService {
 
                 patientRepository.save(patient);
             }
+            String hospitalName= hospitalRepository.findById(hospitalId).get().getName();
+            predictionService.uploadDataToKafka(hospitalName+"_"+hospitalId,file);
         }
     }
     public PaginatedResponse<Patient> getTableData(int start, int size, String filters, String sorting, String globalFilter, Integer hospitalId) {

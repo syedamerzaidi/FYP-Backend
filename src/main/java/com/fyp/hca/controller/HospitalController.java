@@ -99,4 +99,10 @@ public class HospitalController {
         PaginatedResponse<Hospital> result = hospitalService.getTableData(start, size, filters, sorting,globalFilter);
         return ResponseEntity.ok().body(result);
     }
+
+    @GetMapping("/getHospitalOptionsBaseUser")
+    public ResponseEntity<?> getHospitalOptionsBaseUser(@RequestParam("userId") Integer userId) {
+        List<Map<String, Object>> hospitals = hospitalService.getHospitalOptionsBaseUser(userId);
+        return ResponseEntity.ok().body(hospitals);
+    }
 }

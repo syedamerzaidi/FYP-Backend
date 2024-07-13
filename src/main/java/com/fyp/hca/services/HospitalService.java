@@ -3,6 +3,7 @@ package com.fyp.hca.services;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fyp.hca.entity.Hospital;
+import com.fyp.hca.entity.Users;
 import com.fyp.hca.model.PaginatedResponse;
 import com.fyp.hca.repositories.HospitalRepository;
 import com.fyp.hca.repositories.PatientRepository;
@@ -182,4 +183,29 @@ public class HospitalService {
             return false;
         }
     }
+    //getHospitalOptionsBaseUser
+    public List<Map<String, Object>> getHospitalOptionsBaseUser(Integer userId) {
+        Optional<Users> userOpt = userRepository.findById(userId);
+        if (userOpt.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        Users user = userOpt.get();
+        String userType = user.getUsertype();
+
+        if (userType.equals("Super Administrator")) {
+            return hospitalRepository.findHospitalIdAndNameSuper();
+        } else if (userType.equals("Division Administrator")) {
+            return hospitalRepository.findHospitalIdAndNameDivision(user.getDivision().getId());
+        } else if (userType.equals("District Administrator")) {
+            return hospitalRepository.findHospitalIdAndNameDistrict(user.getDistrict().getId());
+        } else if (userType.equals("Tehsil Administrator")) {
+            return hospitalRepository.findHospitalIdAndNameTehsil(user.getTehsil().getId());
+        } else if (userType.equals("Province Administrator")) {
+            return hospitalRepository.findHospitalIdAndNameProvince(user.getProvince().getId());
+        }
+
+        return new ArrayList<>();
+    }
+
 }

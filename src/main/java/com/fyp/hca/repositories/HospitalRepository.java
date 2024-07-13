@@ -23,8 +23,25 @@ public interface HospitalRepository extends JpaRepository<Hospital, Integer>, Jp
 
     @Query("SELECT h  FROM Hospital h WHERE h.tehsil.district.division.province.id = :provinceId")
     List<Hospital> findAllByProvinceId(Integer provinceId, Sort id);
+
     @Query("SELECT h  FROM Hospital h WHERE h.tehsil.district.division.id = :divisionId")
     List<Hospital> findAllByDivisionId(Integer divisionId, Sort id);
+
     @Query("SELECT h  FROM Hospital h WHERE h.tehsil.id = :tehsilId")
     List<Hospital> findAllByTehsilId(Integer tehsilId, Sort id);
+
+    @Query("SELECT h.id as id, h.name as name FROM Hospital h")
+    List<Map<String, Object>> findHospitalIdAndNameSuper();
+
+    @Query("SELECT h.id as id, h.name as name FROM Hospital h WHERE h.tehsil.district.division.id = :divisionId")
+    List<Map<String, Object>> findHospitalIdAndNameDivision(Integer divisionId);
+
+    @Query("SELECT h.id as id, h.name as name FROM Hospital h WHERE h.tehsil.id = :tehsilId")
+    List<Map<String, Object>> findHospitalIdAndNameTehsil(Integer tehsilId);
+
+    @Query("SELECT h.id as id, h.name as name FROM Hospital h WHERE h.tehsil.district.id = :districtId")
+    List<Map<String, Object>> findHospitalIdAndNameDistrict(Integer districtId);
+
+    @Query("SELECT h.id as id, h.name as name FROM Hospital h WHERE h.tehsil.district.division.province.id = :provinceId")
+    List<Map<String, Object>> findHospitalIdAndNameProvince(Integer provinceId);
 }

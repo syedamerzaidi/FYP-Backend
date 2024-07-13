@@ -86,7 +86,7 @@ public class PatientController {
         try {
             patientService.savePatientsFromCSV(file,hospitalId,diseaseId);
 
-            String uploadDir = "D:\\latest\\Kafka_Running_service_for_files_processing\\processing";
+            String uploadDir = "D:\\patientdata";
             String fileName = file.getOriginalFilename();
             Path filePath = Paths.get(uploadDir, fileName);
             Files.createDirectories(filePath.getParent());
