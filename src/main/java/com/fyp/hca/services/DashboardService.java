@@ -68,33 +68,28 @@ public class DashboardService {
         DynamicTimeChartData dynamicAreaTimeChart = new DynamicTimeChartData(dataPoints);
         result.setDynamicTimeChartData(dynamicAreaTimeChart);
 
-        long CardiacCount = filteredpatients.stream().filter(Patient::getCardiac).count();
-        long LargeIntestineCount = filteredpatients.stream().filter(Patient::getGastrointestinal).count();
-        long SmallIntestineCount = filteredpatients.stream().filter(Patient::getGastrointestinal).count();
-        long KidneyCount = filteredpatients.stream().filter(Patient::getKidney).count();
-        long LungCount = filteredpatients.stream().filter(Patient::getRespiratory).count();
-        result.setOrganChartData(new OrganChartData(CardiacCount, LargeIntestineCount, SmallIntestineCount, KidneyCount, LungCount));
         result.setStatisticResponse(calculateStatistics(filteredpatients, totalPatients));
 
-        long feverCount = filteredpatients.stream().filter(Patient::getFever).count();
-        long highFeverCount = filteredpatients.stream().filter(Patient::getHighFever).count();
-        long hypertensionCount = filteredpatients.stream().filter(Patient::getHypertension).count();
-        long cardiacCount = filteredpatients.stream().filter(Patient::getCardiac).count();
-        long weaknessPainCount = filteredpatients.stream().filter(Patient::getWeaknessPain).count();
-        long respiratoryCount = filteredpatients.stream().filter(Patient::getRespiratory).count();
-        long cancerCount = filteredpatients.stream().filter(Patient::getCancer).count();
-        long thyroidCount = filteredpatients.stream().filter(Patient::getThyroid).count();
-        long prostateCount = filteredpatients.stream().filter(Patient::getProstate).count();
-        long kidneyCount = filteredpatients.stream().filter(Patient::getKidney).count();
-        long neuroCount = filteredpatients.stream().filter(Patient::getNeuro).count();
-        long nauseaCount = filteredpatients.stream().filter(Patient::getNausea).count();
-        long asymptomaticCount = filteredpatients.stream().filter(Patient::getAsymptomatic).count();
-        long gastrointestinalCount = filteredpatients.stream().filter(Patient::getGastrointestinal).count();
-        long orthoCount = filteredpatients.stream().filter(Patient::getOrtho).count();
-        long respiratoryCDCount = filteredpatients.stream().filter(Patient::getRespiratoryCD).count();
-        long cardiacsCDCount = filteredpatients.stream().filter(Patient::getCardiacsCD).count();
-        long kidneyCDCount = filteredpatients.stream().filter(Patient::getKidneyCD).count();
-        result.setBarRaceSymptoms(new BarRaceSymptoms(feverCount, highFeverCount, hypertensionCount, cardiacCount, weaknessPainCount, respiratoryCount, cancerCount, thyroidCount, prostateCount, kidneyCount, neuroCount, nauseaCount, asymptomaticCount, gastrointestinalCount, orthoCount, respiratoryCDCount, cardiacsCDCount, kidneyCDCount));
+            long feverCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getFever())).count();
+            long highFeverCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getHighFever())).count();
+            long hypertensionCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getHypertension())).count();
+            long cardiacCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getCardiac())).count();
+            long weaknessPainCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getWeaknessPain())).count();
+            long respiratoryCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getRespiratory())).count();
+            long cancerCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getCancer())).count();
+            long thyroidCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getThyroid())).count();
+            long prostateCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getProstate())).count();
+            long kidneyCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getKidney())).count();
+            long neuroCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getNeuro())).count();
+            long nauseaCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getNausea())).count();
+            long asymptomaticCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getAsymptomatic())).count();
+            long gastrointestinalCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getGastrointestinal())).count();
+            long orthoCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getOrtho())).count();
+            long respiratoryCDCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getRespiratoryCD())).count();
+            long cardiacsCDCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getCardiacsCD())).count();
+            long kidneyCDCount = filteredpatients.stream().filter(p -> Boolean.TRUE.equals(p.getKidneyCD())).count();
+            result.setBarRaceSymptoms(new BarRaceSymptoms(feverCount, highFeverCount, hypertensionCount, cardiacCount, weaknessPainCount, respiratoryCount, cancerCount, thyroidCount, prostateCount, kidneyCount, neuroCount, nauseaCount, asymptomaticCount, gastrointestinalCount, orthoCount, respiratoryCDCount, cardiacsCDCount, kidneyCDCount));
+            result.setOrganChartData(new OrganChartData(cardiacCount, gastrointestinalCount, gastrointestinalCount, kidneyCount+kidneyCDCount, respiratoryCDCount+respiratoryCount));
 
         List<int[]> femaleData = filteredpatients.stream()
                 .filter(patient -> patient.getGender().toLowerCase().equals("0"))
