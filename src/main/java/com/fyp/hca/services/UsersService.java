@@ -21,10 +21,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional
@@ -57,7 +54,15 @@ public class UsersService {
     }
 
     public Users isValidUser(String email, String password) {
-        return usersRepository.findByEmailAndPassword(email, password).orElse(null);
+        Optional<Users> userOptional = usersRepository.findByEmail(email);
+
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            if (Objects.equals(password, user.getPassword())) {
+                return user;
+            }
+        }
+        return null; // or throw an exception if preferred
     }
 
     public PaginatedResponse<Users> getTableData(int start, int size, String filters, String sorting, String globalFilter) {

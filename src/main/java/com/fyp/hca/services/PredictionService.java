@@ -1,5 +1,6 @@
 package com.fyp.hca.services;
 
+import com.fyp.hca.entity.Prediction;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -60,7 +61,7 @@ public class PredictionService {
         }
     }
 
-    public static class Prediction {
+    /*public static class Prediction {
         private String date;
         private double predictedPatients;
         private double ventilatorsRequired;
@@ -107,6 +108,6 @@ public class PredictionService {
         public void setOxygenCylindersRequired(double oxygenCylindersRequired) {
             this.oxygenCylindersRequired = oxygenCylindersRequired;
         }
-    }
+    }*/
 
 }

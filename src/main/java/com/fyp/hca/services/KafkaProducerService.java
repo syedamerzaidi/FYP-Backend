@@ -1,3 +1,4 @@
+/*
 package com.fyp.hca.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaProducerService {
 
-    /*private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
     public KafkaProducerService(KafkaTemplate<String, String> kafkaTemplate) {
@@ -20,5 +21,6 @@ public class KafkaProducerService {
         } catch (Exception e) {
             throw new RuntimeException("Error sending message: " + e.getMessage());
         }
-    }*/
+    }
 }
+*/

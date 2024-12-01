@@ -1,5 +1,6 @@
 package com.fyp.hca.controller;
 
+import com.fyp.hca.entity.Prediction;
 import com.fyp.hca.services.PredictionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class PredictionController {
     }
 
     @GetMapping("/predictions")
-    public List<PredictionService.Prediction> getPredictions(@RequestParam("folder") String folder) {
+    public List<Prediction> getPredictions(@RequestParam("folder") String folder) {
         return predictionService.fetchPredictions(folder);
     }
 }

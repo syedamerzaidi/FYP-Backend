@@ -30,6 +30,10 @@ public class Hospital extends BaseEntity {
     @Column(name = "hospital_type", nullable = false, length = 255)
     private String hospitalType;
 
+    @OneToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "prediction_id", referencedColumnName = "id", nullable = true)
+    private Prediction prediction;
+
     @ManyToOne
     @JoinColumn(name = "tehsil_id", referencedColumnName = "id", nullable = true)
     private Tehsil tehsil;
